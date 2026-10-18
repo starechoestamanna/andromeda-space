@@ -1,42 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#050713">
-<title>ANDROMEDA — Cosmic Explorer</title>
+<meta name="theme-color" content="#080D16">
+<meta name="description" content="ANDROMEDA — an interactive astronomy explorer with planetary models, a star atlas and real SPHEREx imagery.">
+<title>ANDROMEDA — Observatory</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #050713;
-  --panel: #10142a;
-  --text: #f5f5ff;
-  --muted: #a4abc5;
-  --line: #ffffff20;
-  --violet: #b6a7ff;
-  --blue: #9bd8ff;
-  --max: 1180px;
+  color-scheme: dark;
+  --bg: #080D16;
+  --panel: #111A26;
+  --panel2: #172331;
+  --white: #E8EDF2;
+  --muted: #A7B3C2;
+  --line: #354657;
+  --blue: #425B75;
+  --teal: #7FAEAE;
+  --soft: #B3C8D4;
+  --max: 1200px;
 }
 
 * { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 90px;
+  scroll-padding-top: 88px;
 }
 
 body {
   margin: 0;
   background: var(--bg);
-  color: var(--text);
+  color: var(--white);
   font-family: "DM Sans", sans-serif;
-  line-height: 1.7;
-  overflow-x: hidden;
+  line-height: 1.65;
 }
 
 body::before {
@@ -46,31 +48,90 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 15% 10%, #45347855, transparent 38%),
-    radial-gradient(ellipse at 90% 45%, #163b6240, transparent 35%),
-    radial-gradient(ellipse at 50% 100%, #44215b35, transparent 38%),
+    radial-gradient(ellipse at 15% 0%, #425B751f, transparent 40%),
+    radial-gradient(ellipse at 90% 40%, #7FAEAE10, transparent 36%),
     var(--bg);
 }
 
-a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
 button, input { font: inherit; }
 
-a:focus-visible, button:focus-visible, input:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 5px;
+button, a { -webkit-tap-highlight-color: transparent; }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
 }
 
+a { color: inherit; text-decoration: none; }
+
 .container {
-  width: min(var(--max), calc(100% - 44px));
-  margin-inline: auto;
+  width: min(var(--max), calc(100% - 40px));
+  margin: auto;
 }
 
 .eyebrow {
-  color: var(--blue);
-  font-size: .7rem;
-  font-weight: 700;
-  letter-spacing: .2em;
+  color: var(--teal);
+  font-size: .72rem;
   text-transform: uppercase;
+  letter-spacing: .19em;
+  font-weight: 700;
+}
+
+.muted { color: var(--muted); }
+
+.section {
+  padding: 86px 0;
+  border-bottom: 1px solid #35465788;
+}
+
+.section-heading {
+  max-width: 740px;
+  margin-bottom: 32px;
+}
+
+.section-heading h2 {
+  margin: 10px 0;
+  font: 500 clamp(2rem, 5vw, 3.5rem)/1.12 "Space Grotesk", sans-serif;
+  letter-spacing: -.045em;
+}
+
+.section-heading p { color: var(--muted); }
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #111A26;
+  color: var(--white);
+  cursor: pointer;
+  font-size: .85rem;
+  transition: border-color .2s, background .2s;
+}
+
+.button:hover {
+  border-color: var(--teal);
+  background: #172331;
+}
+
+.button-primary {
+  color: #080D16;
+  background: var(--teal);
+  border-color: var(--teal);
+  font-weight: 700;
+}
+
+.button-primary:hover {
+  background: #A1C5C5;
+  color: #080D16;
 }
 
 /* NAVIGATION */
@@ -78,742 +139,1368 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .nav {
   position: sticky;
   top: 0;
-  z-index: 20;
-  background: #050713dc;
-  backdrop-filter: blur(22px);
+  z-index: 30;
+  background: #080D16ee;
   border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
 }
 
 .nav-inner {
-  min-height: 76px;
+  min-height: 72px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  align-items: center;
+  gap: 24px;
 }
 
 .brand {
-  font: 600 1rem Orbitron, sans-serif;
-  letter-spacing: .16em;
+  font: 700 1rem "Space Grotesk", sans-serif;
+  letter-spacing: .17em;
+  white-space: nowrap;
 }
 
-.brand span { color: var(--violet); }
+.brand span { color: var(--teal); }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 22px;
   font-size: .82rem;
-  color: #c9cbe0;
+  color: var(--muted);
 }
 
-.nav-links a:hover { color: white; }
-
-.nav-cta {
-  padding: 9px 15px;
-  border: 1px solid #b6a7ff66;
-  border-radius: 100px;
-}
+.nav-links a:hover { color: var(--teal); }
 
 /* HERO */
 
 .hero {
-  min-height: 740px;
-  min-height: max(690px, min(850px, calc(100svh - 76px)));
-  position: relative;
+  min-height: 590px;
   display: grid;
   align-items: center;
   overflow: hidden;
+  position: relative;
   border-bottom: 1px solid var(--line);
 }
 
-.hero-content {
-  position: relative;
-  z-index: 3;
-  max-width: 690px;
-  padding-block: 90px;
-}
-
-.presented {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #c9c9e3;
-  font-size: .78rem;
-  letter-spacing: .09em;
-}
-
-.presented::before {
+.hero::before {
   content: "";
-  width: 28px;
-  height: 1px;
-  background: var(--violet);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #080D16 0%, #080D16ed 43%, #080D1640 100%),
+    radial-gradient(ellipse at 80% 45%, #425B7533, transparent 48%);
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 44px;
+  padding-block: 70px;
 }
 
 .hero h1 {
-  margin: 22px 0 12px;
-  font: 500 clamp(3rem, 9vw, 7.2rem)/1.12 Orbitron, sans-serif;
-  letter-spacing: .035em;
-  background: linear-gradient(110deg, #fff, #c9bfff 55%, #8bd3ff);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  margin: 15px 0 8px;
+  font: 600 clamp(2.9rem, 7vw, 6.2rem)/1 "Space Grotesk", sans-serif;
+  letter-spacing: -.06em;
 }
 
-.subtitle {
-  margin: 0;
-  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+.hero h1 span { color: var(--teal); }
+
+.hero-subtitle {
+  margin: 14px 0;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: var(--soft);
 }
 
-.description {
-  max-width: 490px;
-  margin: 20px 0 29px;
+.hero-copy {
+  max-width: 560px;
+  color: var(--muted);
+  margin-bottom: 25px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-image {
+  position: relative;
+  min-height: 345px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.hero-image img {
+  width: 100%;
+  height: 345px;
+  object-fit: cover;
+  opacity: .87;
+}
+
+.image-credit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 35px 16px 13px;
+  font-size: .7rem;
+  color: white;
+  background: linear-gradient(transparent, #080D16ee);
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: .75rem;
+  margin-top: 24px;
+}
+
+.status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+/* PANELS */
+
+.panel {
+  min-width: 0;
+  padding: 23px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: linear-gradient(145deg, #172331ee, #111A26f5);
+}
+
+.panel h3 {
+  margin: 7px 0;
+  font: 500 1.25rem "Space Grotesk", sans-serif;
+}
+
+.panel p { color: var(--muted); font-size: .88rem; }
+
+.notice {
+  border-left: 3px solid var(--teal);
+  background: #7FAEAE0d;
+  padding: 14px 17px;
+  margin-top: 18px;
+  font-size: .83rem;
   color: var(--muted);
 }
 
-.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+/* SOLAR SYSTEM */
 
-.btn {
-  min-height: 48px;
-  padding: 0 21px;
-  display: inline-flex;
-  justify-content: center;
+.system-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(270px, .85fr);
+  gap: 24px;
   align-items: center;
-  gap: 10px;
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  color: white;
-  background: transparent;
-  cursor: pointer;
-  transition: .25s ease;
 }
 
-.btn:hover { transform: translateY(-3px); border-color: var(--violet); }
-
-.btn-primary {
-  color: #080a18;
-  background: linear-gradient(110deg, #d7ceff, #9edbff);
-  border: 0;
-  font-weight: 700;
-}
-
-.btn-primary:hover { background: white; }
-
-.hero-note {
-  margin-top: 34px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #aeb3cd;
-  font-size: .75rem;
-}
-
-.dot {
-  width: 7px;
-  height: 7px;
-  background: var(--violet);
-  border-radius: 50%;
-  box-shadow: 0 0 15px var(--violet);
-}
-
-/* RINGED PLANET */
-
-.planet-scene {
-  position: absolute;
-  width: min(58vw, 710px);
+.system-stage {
+  width: 100%;
+  max-width: 650px;
   aspect-ratio: 1;
-  right: -4%;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.planet-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, #8d78ff35, transparent 67%);
-  filter: blur(22px);
-}
-
-.planet {
-  position: absolute;
-  width: 67%;
-  aspect-ratio: 1;
-  left: 17%;
-  top: 16%;
-  border-radius: 50%;
-  background:
-    repeating-linear-gradient(171deg, transparent 0 15px, #e4d7ff16 16px 22px, #171f4b60 23px 34px),
-    radial-gradient(ellipse at 25% 23%, #ded7ff 0%, #9d98e5 13%, #505eab 37%, #222d62 62%, #070a1b 83%);
-  box-shadow: inset -45px -16px 65px #02040f, 0 0 65px #8175ff33;
+  position: relative;
+  margin: auto;
   overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at center, #425B7522, transparent 66%),
+    #080D16;
 }
 
-.planet::after {
+.system-stage::before,
+.system-stage::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 30%, #05071355 70%, #03040d);
+  width: 3px;
+  height: 3px;
+  left: 21%;
+  top: 22%;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow:
+    75px 33px 0 #A7B3C2,
+    140px 110px 0 #A7B3C2,
+    280px 40px 0 #E8EDF2,
+    300px 240px 0 #A7B3C2,
+    -23px 210px 0 #E8EDF2;
 }
 
-.ring {
+.sun {
   position: absolute;
-  width: 110%;
-  height: 31%;
-  top: 44%;
-  left: -5%;
-  border: 17px solid #c4b7ff70;
-  border-left-color: #8ac8ff70;
-  border-right-color: #e0b7f280;
+  top: 50%;
+  left: 50%;
+  width: 7%;
+  aspect-ratio: 1;
+  min-width: 14px;
+  min-height: 14px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #FFF3CE 0%, #D9B878 38%, #A8753D 72%);
   border-radius: 50%;
-  transform: rotate(-20deg);
-}
-
-.ring-front {
-  position: absolute;
-  width: 110%;
-  height: 31%;
-  top: 44%;
-  left: -5%;
-  border: 12px solid transparent;
-  border-bottom-color: #e6dcffcc;
-  border-radius: 50%;
-  transform: rotate(-20deg);
-  clip-path: inset(50% 0 0 0);
+  box-shadow: 0 0 26px #D2A66A55, 0 0 65px #D2A66A25;
+  z-index: 3;
 }
 
 .orbit {
   position: absolute;
-  inset: 4%;
-  border: 1px solid #b4b8ff25;
+  width: var(--diameter);
+  height: var(--diameter);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #425B756b;
   border-radius: 50%;
-  transform: rotate(-25deg) scaleY(.6);
 }
 
-.orbit.two {
-  inset: -5%;
-  border-style: dashed;
-  transform: rotate(25deg) scaleY(.73);
-}
-
-.planet-caption {
+.orbit-track {
   position: absolute;
-  bottom: 15%;
-  right: 9%;
-  color: #c8c4ed;
-  font-size: .63rem;
-  letter-spacing: .2em;
+  inset: 0;
+  border-radius: 50%;
+  animation: orbit-spin var(--period) linear infinite;
 }
 
-/* GENERAL SECTIONS */
-
-.section {
-  padding: 100px 0;
-  border-bottom: 1px solid var(--line);
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-.section-heading { max-width: 660px; margin-bottom: 40px; }
+.system-paused .orbit-track { animation-play-state: paused; }
 
-.section-heading h2 {
-  margin: 12px 0;
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
-  font-weight: 500;
-  letter-spacing: -.045em;
-  line-height: 1.16;
+.planet-dot {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--planet-size, 12px);
+  height: var(--planet-size, 12px);
+  border: 1px solid #DDE7EB88;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  background: var(--planet-color, #7FAEAE);
+  box-shadow: 0 0 12px #7FAEAE30;
 }
 
-.section-heading p { color: var(--muted); }
+.planet-dot:hover,
+.planet-dot:focus-visible {
+  box-shadow: 0 0 18px #7FAEAEaa;
+}
 
-.grid {
+.planet-dot.mercury { --planet-color: #A8A5A1; }
+.planet-dot.venus { --planet-color: #D9BE91; }
+.planet-dot.earth { --planet-color: #6B9DC0; }
+.planet-dot.mars { --planet-color: #C87864; }
+.planet-dot.jupiter { --planet-color: #C9AA8A; }
+.planet-dot.saturn {
+  --planet-color: #D8C6A4;
+  border-radius: 48% 48% 42% 42%;
+  outline: 3px solid #D2A66A66;
+}
+.planet-dot.uranus { --planet-color: #8AC7CF; }
+.planet-dot.neptune { --planet-color: #557FC7; }
+
+.system-caption {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  right: 14px;
+  color: var(--muted);
+  font-size: .68rem;
+  pointer-events: none;
+  text-align: center;
+}
+
+.system-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.speed-control {
+  margin-top: 15px;
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.speed-control input { width: 100%; accent-color: var(--teal); }
+
+.planet-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 16px 0;
+}
+
+.planet-chip {
+  color: var(--muted);
+  background: #080D16;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: .78rem;
+}
+
+.planet-chip:hover,
+.planet-chip.selected {
+  color: var(--white);
+  border-color: var(--teal);
+  background: #7FAEAE12;
+}
+
+.fact-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.fact {
+  padding: 11px;
+  border-radius: 8px;
+  background: #080D16a6;
+  border: 1px solid #35465799;
+}
+
+.fact-label {
+  font-size: .7rem;
+  color: var(--muted);
+  display: block;
+}
+
+.fact strong { font-size: .88rem; }
+
+/* REAL IMAGE GALLERY */
+
+.gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 17px;
+  gap: 15px;
 }
 
-.card {
-  padding: 25px;
+.image-card {
+  overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 21px;
-  background: linear-gradient(145deg, #151a30d9, #0a0d1be8);
-  transition: transform .25s, border-color .25s;
+  background: var(--panel);
+  border-radius: 12px;
 }
 
-.card:hover { transform: translateY(-5px); border-color: #b6a7ff77; }
-.card-number { color: var(--violet); font: .78rem Orbitron, sans-serif; }
-.card h3 { margin: 22px 0 8px; }
-.card p { margin: 0; color: var(--muted); font-size: .9rem; }
+.image-card img {
+  width: 100%;
+  height: 205px;
+  object-fit: cover;
+  background: #080D16;
+  transition: transform .35s;
+}
 
-.tag {
+.image-card:hover img { transform: scale(1.035); }
+
+.image-card-copy { padding: 16px; }
+
+.image-card h3 {
+  margin: 0 0 6px;
+  font: 500 1.05rem "Space Grotesk", sans-serif;
+}
+
+.image-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+.image-card a {
   display: inline-block;
-  margin-top: 18px;
-  padding: 5px 10px;
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  color: #c9c8e5;
-  font-size: .7rem;
+  margin-top: 12px;
+  color: var(--teal);
+  font-size: .78rem;
 }
 
-/* OBSERVATION EXPLORER */
+/* STAR MAP */
 
-.explorer-layout {
+.sky-layout {
   display: grid;
-  grid-template-columns: .85fr 1.15fr;
+  grid-template-columns: minmax(0, 1.3fr) minmax(230px, .7fr);
   gap: 20px;
 }
 
-.panel, .comparison-box {
-  min-width: 0;
-  padding: 25px;
-  border: 1px solid var(--line);
-  border-radius: 21px;
-  background: rgba(14,18,36,.85);
-}
-
-.panel h3 { margin: 7px 0; }
-.panel p { color: var(--muted); font-size: .9rem; }
-
-.observation-list { display: grid; gap: 10px; margin-top: 22px; }
-
-.observation-option {
-  width: 100%;
-  text-align: left;
-  padding: 14px;
-  color: white;
-  border: 1px solid var(--line);
-  border-radius: 13px;
-  background: #ffffff05;
-  cursor: pointer;
-}
-
-.observation-option:hover,
-.observation-option.active {
-  background: #a59aff14;
-  border-color: #b6a7ff88;
-}
-
-.observation-option strong { display: block; font-size: .88rem; }
-.observation-option span { color: var(--muted); font-size: .75rem; }
-
-.demo-visual {
-  min-height: 235px;
-  position: relative;
+.sky-stage {
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 15px;
-  background:
-    radial-gradient(ellipse at 58% 42%, #8a72df66, transparent 15%),
-    radial-gradient(ellipse at 37% 65%, #4299d34a, transparent 23%),
-    radial-gradient(circle at 20% 30%, white 0 1px, transparent 2px),
-    radial-gradient(circle at 70% 20%, #dedfff 0 1px, transparent 2px),
-    radial-gradient(circle at 45% 18%, white 0 1px, transparent 2px),
-    radial-gradient(circle at 80% 70%, white 0 1px, transparent 2px),
-    #070a19;
-  background-size: auto, auto, 97px 83px, 121px 107px, 89px 117px, 103px 91px, auto;
-}
-
-.demo-visual::before {
-  content: "";
-  position: absolute;
-  width: 95px;
-  height: 95px;
-  left: 48%;
-  top: 45%;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle at 30% 25%, #e4dfff, #7e7bc6 35%, #252d65 70%, #090c20);
-  box-shadow: 0 0 45px #9180ff55;
-}
-
-.demo-visual::after {
-  content: "ILLUSTRATIVE DEMO";
-  position: absolute;
-  bottom: 13px;
-  left: 14px;
-  color: #d0d3ed;
-  font-size: .61rem;
-  letter-spacing: .13em;
-}
-
-.data-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.detail-label { color: var(--muted); font-size: .73rem; }
-.detail-value { display: block; margin-top: 4px; font-size: .87rem; overflow-wrap: anywhere; }
-
-.notice {
-  margin-top: 20px;
-  padding: 17px 19px;
-  border-left: 2px solid var(--violet);
-  background: #a59aff0d;
-  color: #c1c5df;
-  font-size: .84rem;
-}
-
-/* IMAGE COMPARISON */
-
-.compare-views {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 13px;
-}
-
-.compare-view {
-  position: relative;
-  min-height: 220px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background:
-    radial-gradient(ellipse at 30% 55%, #7964d999, transparent 27%),
-    radial-gradient(ellipse at 70% 36%, #3f99c855, transparent 24%),
-    radial-gradient(circle at 25% 24%, white 0 1px, transparent 2px),
-    radial-gradient(circle at 76% 68%, white 0 1px, transparent 2px),
-    #080b1b;
-  background-size: auto, auto, 83px 79px, 97px 89px, auto;
-}
-
-.compare-view.second { filter: hue-rotate(18deg) brightness(1.1); }
-
-.view-label {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 2;
-  padding: 5px 9px;
-  border-radius: 6px;
-  background: #050713d9;
-  font-size: .67rem;
-}
-
-.image-caption {
-  position: absolute;
-  bottom: 12px;
-  left: 13px;
-  z-index: 2;
-  color: #d6d8ef;
-  font-size: .75rem;
-  text-shadow: 0 1px 8px #000;
-}
-
-.slider-wrap { margin-top: 22px; }
-.slider-wrap label { font-size: .84rem; }
-
-input[type="range"] {
-  width: 100%;
-  margin-top: 13px;
-  accent-color: var(--violet);
-  cursor: ew-resize;
-}
-
-.compare-result {
-  margin-top: 19px;
-  padding: 14px 16px;
   border-radius: 12px;
-  background: #a59aff10;
-  color: #c5c8e0;
-  font-size: .84rem;
+  background: #080D16;
 }
 
-/* SCIENTIFIC PRINCIPLES */
+#skyCanvas {
+  display: block;
+  width: 100%;
+  height: 390px;
+  cursor: crosshair;
+}
 
-.principles {
+.sky-controls {
+  padding: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  border-top: 1px solid var(--line);
+}
+
+.sky-info {
+  min-height: 110px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+/* SPHEREX COMPARISON */
+
+.compare-layout {
+  display: grid;
+  grid-template-columns: 1.3fr .7fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.compare-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #080D16;
+}
+
+.compare-frame > img,
+.compare-reveal img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+.compare-reveal {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 50% 0 0);
+  pointer-events: none;
+}
+
+.compare-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--white);
+  box-shadow: 0 0 10px #080D16aa;
+  pointer-events: none;
+}
+
+.compare-divider::after {
+  content: "↔";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: #080D16;
+  background: var(--white);
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+.compare-label {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  color: var(--white);
+  background: #080D16dd;
+  font-size: .7rem;
+}
+
+.compare-label.left { left: 12px; }
+.compare-label.right { right: 12px; }
+
+.range-wrap { margin-top: 15px; }
+.range-wrap input { width: 100%; accent-color: var(--teal); }
+
+.compare-explain {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: .83rem;
+}
+
+/* EXTERNAL EXPLORERS */
+
+.external-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 17px;
-}
-
-.principle {
-  padding: 23px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: #0e1224a6;
-}
-
-.principle h3 { margin: 0 0 7px; font-size: 1rem; }
-.principle p { margin: 0; color: var(--muted); font-size: .87rem; }
-
-footer { padding: 34px 0; border-top: 1px solid var(--line); }
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
   gap: 16px;
 }
 
-footer p { margin: 0; color: var(--muted); font-size: .76rem; }
+.external-card {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 12px;
+}
 
-/* RESPONSIVE LAYOUT */
+.external-card h3 { margin: 9px 0; }
+.external-card p { color: var(--muted); font-size: .86rem; }
 
-@media (max-width: 850px) {
-  .nav-links { gap: 13px; }
-  .planet-scene { right: -22%; opacity: .5; }
-  .grid { grid-template-columns: 1fr 1fr; }
-  .grid .card:last-child { grid-column: 1 / -1; }
-  .explorer-layout { grid-template-columns: 1fr; }
+/* FOOTER */
+
+footer {
+  padding: 28px 0;
+  color: var(--muted);
+  font-size: .76rem;
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .hero-grid, .system-layout, .sky-layout, .compare-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image { max-width: 700px; }
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .system-stage { max-width: 600px; }
 }
 
 @media (max-width: 600px) {
-  .container { width: calc(100% - 30px); }
-  .nav-inner { min-height: 66px; }
-  .nav-links { gap: 12px; font-size: .73rem; }
+  .container { width: calc(100% - 28px); }
+  .nav-inner { min-height: 64px; }
+  .brand { font-size: .84rem; }
+  .nav-links { gap: 12px; font-size: .72rem; }
   .nav-links a:nth-child(1),
   .nav-links a:nth-child(2) { display: none; }
-  .brand { font-size: .85rem; }
-  .hero { min-height: 690px; }
-  .hero-content { padding-block: 70px; }
-  .hero h1 { font-size: clamp(2.5rem, 13vw, 4rem); }
-  .planet-scene { width: 105vw; right: -43%; top: 60%; opacity: .4; }
-  .section { padding: 72px 0; }
-  .grid, .principles, .compare-views { grid-template-columns: 1fr; }
-  .grid .card:last-child { grid-column: auto; }
-  .compare-view { min-height: 190px; }
-  .panel, .comparison-box { padding: 18px; }
-  .footer-inner { align-items: flex-start; flex-direction: column; }
+
+  .hero-grid { padding-block: 45px; gap: 22px; }
+  .hero h1 { font-size: clamp(2.5rem, 14vw, 4rem); }
+  .hero-image img { height: 245px; }
+  .hero-image { min-height: 245px; }
+
+  .section { padding: 65px 0; }
+  .gallery, .external-grid { grid-template-columns: 1fr; }
+  .image-card img { height: 230px; }
+  .panel { padding: 16px; }
+  #skyCanvas { height: 300px; }
+  .compare-frame > img,
+  .compare-reveal img { height: 260px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
-    transition: none !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
   }
 }
 </style>
 </head>
 
 <body>
+
 <header class="nav">
   <div class="container nav-inner">
-    <a class="brand" href="#home">ANDRO<span>MEDA</span></a>
+    <a href="#home" class="brand">ANDRO<span>MEDA</span></a>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="#mission">Mission</a>
-      <a href="#explorer">Explorer</a>
-      <a href="#compare">Compare</a>
-      <a class="nav-cta" href="#explorer">Enter explorer ↗</a>
+      <a href="#solar-system">Solar system</a>
+      <a href="#sky-atlas">Sky atlas</a>
+      <a href="#gallery">Images</a>
+      <a href="#spherex">SPHEREx lab</a>
     </nav>
   </div>
 </header>
 
 <main>
+
+<!-- HERO -->
+
 <section class="hero" id="home">
-  <div class="planet-scene" aria-hidden="true">
-    <div class="planet-glow"></div>
-    <div class="orbit"></div>
-    <div class="orbit two"></div>
-    <div class="ring"></div>
-    <div class="planet"></div>
-    <div class="ring-front"></div>
-    <div class="planet-caption">Beyond the visible</div>
-  </div>
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">Independent astronomy explorer</div>
+      <h1>ANDRO<span>MEDA</span></h1>
+      <p class="hero-subtitle">A closer look at the universe.</p>
 
-  <div class="container">
-    <div class="hero-content">
-      <div class="presented">A cosmic exploration project</div>
-      <h1>ANDROMEDA</h1>
-      <p class="subtitle">Explore the unknown.</p>
-      <p class="description">
-        Explore astronomical observations, compare illustrative sky views,
-        and learn how scientists investigate possible changes in the universe.
+      <p class="hero-copy">
+        Explore planetary orbits, discover patterns in a star field,
+        view real NASA imagery, and investigate how infrared
+        observations reveal different parts of the cosmos.
       </p>
-      <div class="actions">
-        <a class="btn btn-primary" href="#explorer">Begin exploring ↗</a>
-        <a class="btn" href="#mission">Discover the mission</a>
+
+      <div class="hero-actions">
+        <a class="button button-primary" href="#solar-system">Explore the system ↗</a>
+        <a class="button" href="#spherex">Open investigation lab</a>
       </div>
-      <div class="hero-note">
-        <span class="dot"></span>
-        NASA Space Apps Challenge 2026 · Independent project
-      </div>
+
+      <div class="status">Observatory Dark · Astronomy learning concept</div>
     </div>
+
+    <figure class="hero-image">
+      <img
+        src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia05/pia05425/PIA05425.jpg?crop=faces%2Cfocalpoint&fit=clip&h=649&w=1166"
+        alt="Saturn and its rings photographed by the Cassini spacecraft"
+        fetchpriority="high"
+      >
+      <figcaption class="image-credit">
+        Saturn in Full View · NASA/JPL/Space Science Institute
+      </figcaption>
+    </figure>
   </div>
 </section>
 
-<section class="section" id="mission">
+<!-- SOLAR SYSTEM -->
+
+<section class="section" id="solar-system">
   <div class="container">
     <div class="section-heading">
-      <div class="eyebrow">01 / The mission</div>
-      <h2>The universe changes.<br>How do we notice?</h2>
-      <p>Andromeda is a concept for making astronomical observations easier to explore and compare. Its goal is to help people ask better questions about what they see in the sky.</p>
+      <div class="eyebrow">01 / Planetary explorer</div>
+      <h2>Our solar system.</h2>
+      <p>
+        Select any planet to explore a few facts. This animated
+        orbital diagram is schematic: planet sizes, distances and
+        speeds are not represented to scale.
+      </p>
     </div>
-    <div class="grid">
-      <article class="card">
-        <div class="card-number">01 — OBSERVE</div>
-        <h3>Explore the sky</h3>
-        <p>Inspect observation records and learn what information astronomers use to study the universe.</p>
-        <span class="tag">Observation explorer</span>
+
+    <div class="system-layout">
+      <div>
+        <div class="system-stage" id="systemStage" aria-label="Interactive schematic of the solar system">
+          <div class="sun" title="Sun"></div>
+
+          <div class="orbit" style="--diameter:15%;--period:4s">
+            <div class="orbit-track">
+              <button class="planet-dot mercury" data-planet="Mercury" style="--planet-size:7px" aria-label="Select Mercury" title="Mercury"></button>
+            </div>
+          </div>
+
+          <div class="orbit" style="--diameter:23%;--period:7s">
+            <div class="orbit-track">
+              <button class="planet-dot venus" data-planet="Venus" style="--planet-size:10px" aria-label="Select Venus" title="Venus"></button>
+            </div>
+          </div>
+
+          <div class="orbit" style="--diameter:33%;--period:10s">
+            <div class="orbit-track">
+              <button class="planet-dot earth" data-planet="Earth" style="--planet-size:11px" aria-label="Select Earth" title="Earth"></button>
+            </div>
+          </div>
+
+          <div class="orbit" style="--diameter:43%;--period:14s">
+            <div class="orbit-track">
+              <button class="planet-dot mars" data-planet="Mars" style="--planet-size:9px" aria-label="Select Mars" title="Mars"></button>
+            </div>
+          </div>
+
+          <div class="orbit" style="--diameter:55%;--period:23s">
+            <div class="orbit-track">
+              <button class="planet-dot jupiter" data-planet="Jupiter" style="--planet-size:20px" aria-label="Select Jupiter" title="Jupiter"></button>
+            </div>
+          </div>
+
+          <div class="orbit" style="--diameter:68%;--period:30s">
+            <div class="orbit-track">
+              <button class="planet-dot saturn" data-planet="Saturn" style="--planet-size:16px" aria-label="Select Saturn" title="Saturn"></button>
+            </div>
+          </div>
+
+          <div class="orbit" style="--diameter:82%;--period:39s">
+            <div class="orbit-track">
+              <button class="planet-dot uranus" data-planet="Uranus" style="--planet-size:12px" aria-label="Select Uranus" title="Uranus"></button>
+            </div>
+          </div>
+
+          <div class="orbit" style="--diameter:96%;--period:48s">
+            <div class="orbit-track">
+              <button class="planet-dot neptune" data-planet="Neptune" style="--planet-size:12px" aria-label="Select Neptune" title="Neptune"></button>
+            </div>
+          </div>
+
+          <div class="system-caption">SCHEMATIC ORBITS · NOT TO SCALE</div>
+        </div>
+
+        <div class="system-tools">
+          <button class="button" id="motionButton">Pause orbital motion</button>
+          <button class="button" id="resetSystem">Reset view</button>
+        </div>
+
+        <div class="speed-control">
+          <label for="speedRange">Animation speed</label>
+          <input id="speedRange" type="range" min="0.5" max="3" step="0.5" value="1">
+        </div>
+      </div>
+
+      <article class="panel" aria-live="polite">
+        <div class="eyebrow">Planet details</div>
+        <h3 id="planetName">Earth</h3>
+        <p id="planetDescription">
+          Our home planet, with liquid water on the surface and an atmosphere
+          that supports life as we know it.
+        </p>
+
+        <div class="planet-list" aria-label="Choose a planet">
+          <button class="planet-chip" data-planet="Mercury">Mercury</button>
+          <button class="planet-chip" data-planet="Venus">Venus</button>
+          <button class="planet-chip selected" data-planet="Earth">Earth</button>
+          <button class="planet-chip" data-planet="Mars">Mars</button>
+          <button class="planet-chip" data-planet="Jupiter">Jupiter</button>
+          <button class="planet-chip" data-planet="Saturn">Saturn</button>
+          <button class="planet-chip" data-planet="Uranus">Uranus</button>
+          <button class="planet-chip" data-planet="Neptune">Neptune</button>
+        </div>
+
+        <div class="fact-list">
+          <div class="fact">
+            <span class="fact-label">Solar system order</span>
+            <strong id="planetOrder">3rd planet</strong>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Length of year</span>
+            <strong id="planetYear">365 days</strong>
+          </div>
+        </div>
+
+        <a id="planetLink" class="button" href="https://science.nasa.gov/earth/" target="_blank" rel="noopener noreferrer">
+          Read NASA facts ↗
+        </a>
+
+        <p class="notice">
+          For a full 3D environment with mission data and spacecraft,
+          open NASA's interactive solar-system explorer below.
+        </p>
       </article>
-      <article class="card">
-        <div class="card-number">02 — COMPARE</div>
-        <h3>Look for changes</h3>
-        <p>Compare two views and investigate how apparent differences can arise from several causes.</p>
-        <span class="tag">Visual comparison demo</span>
+    </div>
+
+    <div class="external-grid" style="margin-top:22px">
+      <article class="external-card">
+        <div class="eyebrow">Real 3D explorer</div>
+        <h3>NASA Eyes on the Solar System</h3>
+        <p>
+          Explore planets, moons and spacecraft in NASA's browser-based
+          3D experience.
+        </p>
+        <a class="button button-primary" href="https://science.nasa.gov/eyes/" target="_blank" rel="noopener noreferrer">
+          Launch NASA Eyes ↗
+        </a>
       </article>
-      <article class="card">
-        <div class="card-number">03 — INVESTIGATE</div>
-        <h3>Review candidates</h3>
-        <p>Record possible changes for further investigation without treating an unusual image as proof of discovery.</p>
-        <span class="tag">Scientific review concept</span>
+
+      <article class="external-card">
+        <div class="eyebrow">Planetarium</div>
+        <h3>Stellarium Web</h3>
+        <p>
+          Continue with a realistic planetarium experience and explore the sky
+          using Stellarium.
+        </p>
+        <a class="button" href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">
+          Open Stellarium ↗
+        </a>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section" id="explorer">
+<!-- REAL SPACE IMAGES -->
+
+<section class="section" id="gallery">
   <div class="container">
     <div class="section-heading">
-      <div class="eyebrow">02 / Observation lab</div>
-      <h2>Your window into the cosmos.</h2>
-      <p>Select a demonstration record to explore its details. These are illustrative placeholders, not verified SPHEREx observations.</p>
+      <div class="eyebrow">02 / Image observatory</div>
+      <h2>Real views of space.</h2>
+      <p>
+        A small curated gallery of NASA imagery. Open each original source
+        to read the image description and credits.
+      </p>
     </div>
-    <div class="explorer-layout">
-      <div class="panel">
-        <div class="eyebrow">Demo catalogue</div>
-        <h3>Observation records</h3>
-        <p>Choose a record to view its demonstration details.</p>
-        <div class="observation-list">
-          <button class="observation-option active" data-observation="0" aria-pressed="true">
-            <strong>Field A — Deep Sky</strong><span>Illustrative record · 001</span>
-          </button>
-          <button class="observation-option" data-observation="1" aria-pressed="false">
-            <strong>Field B — Star Region</strong><span>Illustrative record · 002</span>
-          </button>
-          <button class="observation-option" data-observation="2" aria-pressed="false">
-            <strong>Field C — Cosmic Dust</strong><span>Illustrative record · 003</span>
-          </button>
-        </div>
-      </div>
 
-      <div class="panel" aria-live="polite">
-        <div class="eyebrow" id="record-kicker">Record 001</div>
-        <h3 id="record-title">Field A — Deep Sky</h3>
-        <p id="record-description">A fictional example field for demonstrating the explorer interface.</p>
-        <div class="demo-visual" role="img" aria-label="Illustrative cosmic artwork, not a real astronomical observation"></div>
-        <div class="data-details">
-          <div><span class="detail-label">Record ID</span><strong class="detail-value" id="record-id">DEMO-001</strong></div>
-          <div><span class="detail-label">Data status</span><strong class="detail-value">Demonstration only</strong></div>
-          <div><span class="detail-label">Instrument</span><strong class="detail-value">Not assigned</strong></div>
-          <div><span class="detail-label">Scientific result</span><strong class="detail-value">None established</strong></div>
+    <div class="gallery">
+      <article class="image-card">
+        <img
+          src="https://assets.science.nasa.gov/dynamicimage/assets/science/esd/climate/2023/12/ImageWall5_1920x1200-80.jpg?crop=faces%2Cfocalpoint&fit=clip&h=1200&w=1920"
+          alt="Blue Marble view of planet Earth"
+          loading="lazy"
+        >
+        <div class="image-card-copy">
+          <h3>Earth</h3>
+          <p>A satellite-based composite of our home planet.</p>
+          <a href="https://science.nasa.gov/resource/blue-marble/" target="_blank" rel="noopener noreferrer">
+            NASA image source ↗
+          </a>
         </div>
-      </div>
+      </article>
+
+      <article class="image-card">
+        <img
+          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/a/0/PIA04866-1.jpg?crop=faces%2Cfocalpoint&fit=clip&h=2400&w=1920"
+          alt="Jupiter photographed by the Cassini spacecraft"
+          loading="lazy"
+        >
+        <div class="image-card-copy">
+          <h3>Jupiter</h3>
+          <p>A true-colour mosaic captured by NASA's Cassini spacecraft.</p>
+          <a href="https://science.nasa.gov/resource/cassini-jupiter-portrait/" target="_blank" rel="noopener noreferrer">
+            NASA image source ↗
+          </a>
+        </div>
+      </article>
+
+      <article class="image-card">
+        <img
+          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia05/pia05425/PIA05425.jpg?crop=faces%2Cfocalpoint&fit=clip&h=649&w=1166"
+          alt="Saturn and its rings seen by Cassini"
+          loading="lazy"
+        >
+        <div class="image-card-copy">
+          <h3>Saturn</h3>
+          <p>A view of the planet and its expansive ring system.</p>
+          <a href="https://science.nasa.gov/resource/saturn-in-full-view/" target="_blank" rel="noopener noreferrer">
+            NASA image source ↗
+          </a>
+        </div>
+      </article>
     </div>
-    <div class="notice">A visual difference alone does not establish a new planet or another discovery. Real analysis requires suitable data, calibration, alignment, quality checks, and scientific review.</div>
+
+    <div class="notice">
+      Image credits: NASA, NASA/JPL/Space Science Institute, and the
+      original teams cited on their source pages. ANDROMEDA is an
+      independent project and is not an official NASA website.
+    </div>
   </div>
 </section>
 
-<section class="section" id="compare">
+<!-- STAR MAP -->
+
+<section class="section" id="sky-atlas">
   <div class="container">
     <div class="section-heading">
-      <div class="eyebrow">03 / Compare</div>
-      <h2>Two views. More questions.</h2>
-      <p>Move the slider to reveal more of the second illustrative sky view. This is an interaction demo, not a scientific image-analysis tool.</p>
+      <div class="eyebrow">03 / Star atlas</div>
+      <h2>Explore a field of stars.</h2>
+      <p>
+        Click the star field to select a marked star. Turn constellation
+        guide lines and labels on or off. This is an educational illustration,
+        not a calibrated live-sky chart.
+      </p>
     </div>
-    <div class="comparison-box">
-      <div class="compare-views" id="compare-views">
-        <div class="compare-view">
-          <span class="view-label">VIEW A · DEMO</span>
-          <span class="image-caption">Initial observation</span>
-        </div>
-        <div class="compare-view second">
-          <span class="view-label">VIEW B · DEMO</span>
-          <span class="image-caption">Follow-up observation</span>
+
+    <div class="sky-layout">
+      <div class="sky-stage">
+        <canvas id="skyCanvas" aria-label="Interactive illustrative star map">
+          Your browser does not support canvas.
+        </canvas>
+        <div class="sky-controls">
+          <button class="button" id="constellationToggle">Hide constellation lines</button>
+          <button class="button" id="labelToggle">Hide star labels</button>
+          <button class="button" id="redrawSky">Regenerate star field</button>
         </div>
       </div>
-      <div class="slider-wrap">
-        <label for="compare-slider">Reveal second view: <strong id="slider-value">50%</strong></label>
-        <input id="compare-slider" type="range" min="0" max="100" value="50">
-      </div>
-      <div class="compare-result" id="compare-result" aria-live="polite">Demonstration only — no scientific difference has been measured.</div>
+
+      <article class="panel">
+        <div class="eyebrow">Selected object</div>
+        <h3 id="starTitle">The night sky</h3>
+        <p id="starInfo" class="sky-info">
+          Click a named star on the map. Star positions in this illustration
+          are arranged for learning and are not live astronomical coordinates.
+        </p>
+
+        <a class="button" href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">
+          Explore the real sky in Stellarium ↗
+        </a>
+
+        <p class="notice">
+          A scientifically accurate sky map needs a star catalogue,
+          observing location, date and time. This demonstration does not
+          calculate those values.
+        </p>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="section" id="principles">
+<!-- SPHEREX -->
+
+<section class="section" id="spherex">
   <div class="container">
     <div class="section-heading">
-      <div class="eyebrow">04 / Our principles</div>
-      <h2>Curiosity needs evidence.</h2>
-      <p>A useful space-science tool should make its limits as clear as its possibilities.</p>
+      <div class="eyebrow">04 / SPHEREx investigation lab</div>
+      <h2>One sky. Different wavelengths.</h2>
+      <p>
+        SPHEREx observes infrared light, which is invisible to human eyes.
+        Scientists can represent different infrared wavelengths with visible
+        colours to study different properties of astronomical objects.
+      </p>
     </div>
-    <div class="principles">
-      <article class="principle"><h3>Evidence before claims</h3><p>Potential changes are candidates for investigation, not automatic discoveries.</p></article>
-      <article class="principle"><h3>Clear data sources</h3><p>Real observations should identify their source, instrument, and relevant metadata.</p></article>
-      <article class="principle"><h3>Account for uncertainty</h3><p>Noise, alignment, calibration, and observing conditions can affect comparisons.</p></article>
-      <article class="principle"><h3>Make science accessible</h3><p>Explain what the tool shows, what it does not show, and what needs further review.</p></article>
+
+    <div class="compare-layout">
+      <div>
+        <div class="compare-frame" id="compareFrame">
+          <img
+            src="https://www.nasa.gov/wp-content/uploads/2025/05/1-pia26352-spherexs-dust-cloud-reveal.jpg?w=1024"
+            alt="SPHEREx image showing an infrared view at 3.29 microns"
+            loading="lazy"
+          >
+
+          <div class="compare-reveal" id="compareReveal">
+            <img
+              src="https://www.nasa.gov/wp-content/uploads/2025/05/2-pia26352-fig-a-spherexs-dust-cloud-reveal.jpg?w=1024"
+              alt="SPHEREx image of the same sky region at 0.98 microns"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="compare-label left">3.29 µm · DUST</div>
+          <div class="compare-label right">0.98 µm · OTHER VIEW</div>
+          <div class="compare-divider" id="compareDivider"></div>
+        </div>
+
+        <div class="range-wrap">
+          <label for="compareRange" class="muted">
+            Move the slider to reveal the second wavelength
+          </label>
+          <input id="compareRange" type="range" min="0" max="100" value="50">
+        </div>
+
+        <p class="compare-explain">
+          Image credit: NASA/JPL-Caltech. The two views show the same region
+          at different infrared wavelengths. The dust feature visible at
+          3.29 microns is not visible in the 0.98-micron view.
+        </p>
+      </div>
+
+      <article class="panel">
+        <div class="eyebrow">Mission overview</div>
+        <h3>What is SPHEREx?</h3>
+        <p>
+          SPHEREx is a NASA space telescope designed to survey the entire sky
+          in 102 infrared spectral bands. Its observations help researchers
+          investigate galaxies, the early universe, and ingredients in
+          interstellar clouds.
+        </p>
+
+        <div class="fact-list">
+          <div class="fact">
+            <span class="fact-label">Spectral bands</span>
+            <strong>102</strong>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Light observed</span>
+            <strong>Infrared</strong>
+          </div>
+        </div>
+
+        <a class="button button-primary" href="https://science.nasa.gov/mission/spherex/" target="_blank" rel="noopener noreferrer">
+          About SPHEREx ↗
+        </a>
+
+        <p style="margin-top:12px">
+          <a href="https://irsa.ipac.caltech.edu/" target="_blank" rel="noopener noreferrer" style="color:var(--teal)">
+            Open NASA/IPAC Infrared Science Archive ↗
+          </a>
+        </p>
+
+        <div class="notice">
+          This slider compares two published images; it does not detect
+          anomalies, align raw telescope data, or identify new planets.
+          Differences alone are not evidence of a discovery.
+        </div>
+      </article>
     </div>
   </div>
 </section>
+
+<!-- SCIENTIFIC NOTES -->
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">05 / About ANDROMEDA</div>
+      <h2>Explore carefully. Ask better questions.</h2>
+      <p>
+        ANDROMEDA brings interactive astronomy learning and public
+        scientific imagery into one place. The goal is to make space
+        exploration approachable while treating scientific evidence honestly.
+      </p>
+    </div>
+
+    <div class="external-grid">
+      <article class="external-card">
+        <div class="eyebrow">Evidence</div>
+        <h3>Sources matter</h3>
+        <p>
+          Real images link to their original source pages. Check the credits,
+          context and limitations before drawing conclusions.
+        </p>
+      </article>
+
+      <article class="external-card">
+        <div class="eyebrow">Uncertainty</div>
+        <h3>Compare, then investigate</h3>
+        <p>
+          Differences can come from wavelength, processing, alignment,
+          instrument effects or real astronomical changes. Further checks
+          are needed before claiming a discovery.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer>
-  <div class="container footer-inner">
-    <a class="brand" href="#home">ANDRO<span>MEDA</span></a>
-    <p>NASA Space Apps Challenge 2026 · Independent project concept</p>
-    <p>Demonstration interface · Not an official NASA website</p>
+  <div class="container footer-row">
+    <a href="#home" class="brand">ANDRO<span>MEDA</span></a>
+    <span>Independent astronomy learning concept · Not an official NASA website</span>
+    <a href="#home">Back to top ↑</a>
   </div>
 </footer>
 
 <script>
-const observations = [
-  {
-    kicker: "Record 001",
-    title: "Field A — Deep Sky",
-    description: "A fictional example field for demonstrating the explorer interface.",
-    id: "DEMO-001"
+/* PLANET SELECTOR */
+
+const planets = {
+  Mercury: {
+    order: "1st planet",
+    year: "88 Earth days",
+    description: "The smallest planet, orbiting closest to the Sun. Mercury has an ancient, heavily cratered surface.",
+    url: "https://science.nasa.gov/mercury/"
   },
-  {
-    kicker: "Record 002",
-    title: "Field B — Star Region",
-    description: "A fictional star-field example. No actual star positions or measurements are represented.",
-    id: "DEMO-002"
+  Venus: {
+    order: "2nd planet",
+    year: "225 Earth days",
+    description: "A rocky planet with a dense atmosphere and an extremely hot surface. Venus is similar to Earth in size.",
+    url: "https://science.nasa.gov/venus/"
   },
-  {
-    kicker: "Record 003",
-    title: "Field C — Cosmic Dust",
-    description: "A fictional example inspired by structures astronomers investigate in space.",
-    id: "DEMO-003"
+  Earth: {
+    order: "3rd planet",
+    year: "365 days",
+    description: "Our home planet, with liquid water on the surface and an atmosphere that supports life as we know it.",
+    url: "https://science.nasa.gov/earth/"
+  },
+  Mars: {
+    order: "4th planet",
+    year: "687 Earth days",
+    description: "A cold, rocky world with volcanoes, ancient river features, polar caps and robotic explorers.",
+    url: "https://science.nasa.gov/mars/"
+  },
+  Jupiter: {
+    order: "5th planet",
+    year: "11.86 Earth years",
+    description: "The largest planet in our solar system, with powerful storms and a large family of moons.",
+    url: "https://science.nasa.gov/jupiter/"
+  },
+  Saturn: {
+    order: "6th planet",
+    year: "29.4 Earth years",
+    description: "A gas giant known for its spectacular rings, which contain countless icy and rocky particles.",
+    url: "https://science.nasa.gov/saturn/"
+  },
+  Uranus: {
+    order: "7th planet",
+    year: "84 Earth years",
+    description: "An ice giant with a strongly tilted rotation axis and a cold atmosphere containing hydrogen, helium and methane.",
+    url: "https://science.nasa.gov/uranus/"
+  },
+  Neptune: {
+    order: "8th planet",
+    year: "165 Earth years",
+    description: "A distant ice giant with a deep blue appearance and very fast winds in its atmosphere.",
+    url: "https://science.nasa.gov/neptune/"
   }
-];
+};
 
-const buttons = document.querySelectorAll(".observation-option");
+const planetName = document.querySelector("#planetName");
+const planetDescription = document.querySelector("#planetDescription");
+const planetOrder = document.querySelector("#planetOrder");
+const planetYear = document.querySelector("#planetYear");
+const planetLink = document.querySelector("#planetLink");
+const planetChips = document.querySelectorAll(".planet-chip");
+const planetDots = document.querySelectorAll(".planet-dot");
 
-buttons.forEach((button) => {
+function selectPlanet(name) {
+  const planet = planets[name];
+  if (!planet) return;
+
+  planetName.textContent = name;
+  planetDescription.textContent = planet.description;
+  planetOrder.textContent = planet.order;
+  planetYear.textContent = planet.year;
+  planetLink.href = planet.url;
+  planetLink.textContent = "Read NASA facts ↗";
+
+  planetChips.forEach(button => {
+    button.classList.toggle("selected", button.dataset.planet === name);
+  });
+
+  planetDots.forEach(button => {
+    button.setAttribute(
+      "aria-pressed",
+      String(button.dataset.planet === name)
+    );
+  });
+}
+
+document.querySelectorAll("[data-planet]").forEach(button => {
   button.addEventListener("click", () => {
-    const selected = observations[Number(button.dataset.observation)];
-
-    document.querySelector("#record-kicker").textContent = selected.kicker;
-    document.querySelector("#record-title").textContent = selected.title;
-    document.querySelector("#record-description").textContent = selected.description;
-    document.querySelector("#record-id").textContent = selected.id;
-
-    buttons.forEach((item) => {
-      const active = item === button;
-      item.classList.toggle("active", active);
-      item.setAttribute("aria-pressed", String(active));
-    });
+    selectPlanet(button.dataset.planet);
   });
 });
 
-const slider = document.querySelector("#compare-slider");
-const sliderValue = document.querySelector("#slider-value");
-const views = document.querySelector("#compare-views");
-const result = document.querySelector("#compare-result");
+/* ORBIT CONTROLS */
 
-function updateComparison() {
-  const value = Number(slider.value);
-  sliderValue.textContent = `${value}%`;
-  views.children[1].style.clipPath = `inset(0 0 0 ${value}%)`;
-  result.textContent =
-    "Demonstration only — no scientific difference has been measured.";
+const systemStage = document.querySelector("#systemStage");
+const motionButton = document.querySelector("#motionButton");
+const speedRange = document.querySelector("#speedRange");
+const resetSystem = document.querySelector("#resetSystem");
+
+let motionPaused = false;
+
+motionButton.addEventListener("click", () => {
+  motionPaused = !motionPaused;
+  systemStage.classList.toggle("system-paused", motionPaused);
+  motionButton.textContent = motionPaused
+    ? "Resume orbital motion"
+    : "Pause orbital motion";
+});
+
+function updateOrbitSpeed() {
+  const speed = Number(speedRange.value);
+  document.querySelectorAll(".orbit-track").forEach(track => {
+    const original = Number(track.parentElement.dataset.basePeriod ||
+      getComputedStyle(track.parentElement).getPropertyValue("--period").replace("s", ""));
+
+    if (original > 0) {
+      track.style.animationDuration = `${original / speed}s`;
+    }
+  });
 }
 
-slider.addEventListener("input", updateComparison);
+/* Store default periods so the speed control works reliably. */
+document.querySelectorAll(".orbit").forEach(orbit => {
+  orbit.dataset.basePeriod =
+    getComputedStyle(orbit).getPropertyValue("--period").replace("s", "").trim();
+});
+
+speedRange.addEventListener("input", updateOrbitSpeed);
+
+resetSystem.addEventListener("click", () => {
+  selectPlanet("Earth");
+  motionPaused = false;
+  systemStage.classList.remove("system-paused");
+  motionButton.textContent = "Pause orbital motion";
+  speedRange.value = "1";
+  updateOrbitSpeed();
+});
+
+/* STAR ATLAS */
+
+const canvas = document.querySelector("#skyCanvas");
+const ctx = canvas.getContext("2d");
+const skyInfo = document.querySelector("#starInfo");
+const starTitle = document.querySelector("#starTitle");
+
+let showConstellations = true;
+let showStarLabels = true;
+let skyStars = [];
+
+const namedStars = [
+  { name: "Sirius", x: .19, y: .72, note: "A very bright star in Canis Major." },
+  { name: "Betelgeuse", x: .41, y: .28, note: "A red supergiant in the constellation Orion." },
+  { name: "Rigel", x: .58, y: .56, note: "A bright blue-white supergiant in Orion." },
+  { name: "Bellatrix", x: .45, y: .39, note: "A bright star marking Orion's shoulder." },
+  { name: "Alnitak", x: .47, y: .51, note: "One of the three stars in Orion's Belt." },
+  { name: "Alnilam", x: .51, y: .49, note: "The middle star in Orion's Belt." },
+  { name: "Mintaka", x: .55, y: .47, note: "The western star in Orion's Belt." },
+  { name: "Polaris", x: .82, y: .16, note: "The North Star, close to the north celestial pole." },
+  { name: "Dubhe", x: .72, y: .22, note: "A bright star in the Big Dipper asterism." },
+  { name: "Merak", x: .68, y: .30, note: "Another of the stars forming the Big Dipper's bowl." },
+  { name: "Vega", x: .73, y: .54, note: "A bright star in the constellation Lyra." },
+  { name: "Deneb", x: .84, y: .40, note: "A luminous star in Cygnus." },
+  { name: "Altair", x: .63, y: .69, note: "A bright star in the constellation Aquila." }
+];
+
+const constellations = [
+  ["Betelgeuse", "Bellatrix", "Alnitak", "Alnilam", "Mintaka", "Rigel"],
+  ["Dubhe", "Merak"],
+  ["Vega", "Deneb", "Altair"]
+];
+
+function drawSky() {
+  const rect = canvas.getBoundingClientRect();
+  const width = rect.width;
+  const height = rect.height;
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = Math.round(width * dpr);
+  canvas.height = Math.round(height * dpr);
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, width, height);
+
+  const background = ctx.createLinearGradient(0, 0, width, height);
+  background.addColorStop(0, "#080D16");
+  background.addColorStop(1, "#111A26");
+  ctx.fillStyle = background;
+  ctx.fillRect(0, 0, width, height);
+
+  /* Repeatable scattered stars */
+  for (let i = 0; i < 180; i++) {
+    const x = ((Math.sin(i * 127.1) * 43758.5453) % 1 + 1) % 1 * width;
+    const y = ((Math.sin(i * 311.7) * 96321.917) % 1 + 1) % 1 * height;
+    const radius = (i % 13 === 0) ? 1.5 : .6 + (i % 5) * .17;
+
+    ctx.beginPath();
+    ctx.fillStyle = i % 7 === 0 ? "#A6C4CB" : "#DDE7EF";
+    ctx.globalAlpha = .42 + (i % 6) * .09;
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  ctx.globalAlpha = 1;
+
+  skyStars = namedStars.map(star => ({
+    ...star,
+    px: star.x * width,
+    py: star.y * height
+  }));
+
+  if (showConstellations) {
+    ctx.strokeStyle = "#7FAEAE85";
+    ctx.lineWidth = 1;
+
+    const byName = Object.fromEntries(skyStars.map(star => [star.name, star]));
+
+    constellationLines(byName, ["Betelgeuse", "Bellatrix", "Mintaka", "Alnilam", "Alnitak", "Rigel", "Bellatrix"]);
+    constellationLines(byName, ["Dubhe", "Merak"]);
+    constellationLines(byName, ["Vega", "Deneb", "Altair", "Vega"]);
+  }
+
+  skyStars.forEach(star => {
+    ctx.beginPath();
+    ctx.fillStyle = "#EDF4F7";
+    ctx.arc(star.px, star.py, 2.4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "#7FAEAE66";
+    ctx.arc(star.px, star.py, 5, 0, Math.PI * 2);
+    ctx.stroke();
+
+    if (showStarLabels) {
+      ctx.font = "11px DM Sans, sans-serif";
+      ctx.fillStyle = "#C4D2DB";
+      ctx.fillText(star.name, star.px + 8, star.py - 7);
+    }
+  });
+
+  ctx.globalAlpha = 1;
+}
+
+function constellationLines(byName, names) {
+  ctx.beginPath();
+  names.forEach((name, i) => {
+    const star = byName[name];
+    if (!star) return;
+    if (i === 0) ctx.moveTo(star.px, star.py);
+    else ctx.lineTo(star.px, star.py);
+  });
+  ctx.stroke();
+}
+
+document.querySelector("#constellationToggle").addEventListener("click", event => {
+  showConstellations = !showConstellations;
+  event.currentTarget.textContent = showConstellations
+    ? "Hide constellation lines"
+    : "Show constellation lines";
+  drawSky();
+});
+
+document.querySelector("#labelToggle").addEventListener("click", event => {
+  showStarLabels = !showStarLabels;
+  event.currentTarget.textContent = showStarLabels
+    ? "Hide star labels"
+    : "Show star labels";
+  drawSky();
+});
+
+document.querySelector("#redrawSky").addEventListener("click", () => {
+  drawSky();
+  starTitle.textContent = "Star field refreshed";
+  skyInfo.textContent =
+    "The same illustrative star arrangement has been redrawn. It is not a live or calibrated sky chart.";
+});
+
+canvas.addEventListener("click", event => {
+  const rect = canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  let closest = null;
+  let smallestDistance = Infinity;
+
+  skyStars.forEach(star => {
+    const distance = Math.hypot(star.px - x, star.py - y);
+    if (distance < smallestDistance) {
+      smallestDistance = distance;
+      closest = star;
+    }
+  });
+
+  if (closest && smallestDistance < 24) {
+    starTitle.textContent = closest.name;
+    skyInfo.textContent = closest.note +
+      " The position displayed here is illustrative, not a live sky coordinate.";
+  } else {
+    starTitle.textContent = "Unlabelled star field";
+    skyInfo.textContent =
+      "This point belongs to the decorative star field. Try selecting a labelled star or open Stellarium for a real sky view.";
+  }
+});
+
+window.addEventListener("resize", drawSky);
+drawSky();
+
+/* SPHEREX WAVELENGTH SLIDER */
+
+const compareRange = document.querySelector("#compareRange");
+const compareReveal = document.querySelector("#compareReveal");
+const compareDivider = document.querySelector("#compareDivider");
+
+function updateComparison() {
+  const value = Number(compareRange.value);
+  compareReveal.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
+  compareDivider.style.left = `${value}%`;
+}
+
+compareRange.addEventListener("input", updateComparison);
 updateComparison();
 </script>
+
 </body>
 </html>
