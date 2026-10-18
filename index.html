@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080D16">
-<meta name="description" content="ANDROMEDA — an interactive astronomy explorer with planetary models, a star atlas and real SPHEREx imagery.">
-<title>ANDROMEDA — Observatory</title>
+<meta name="description" content="ANDROMEDA — an interactive astronomy explorer.">
+<title>ANDROMEDA | Observatory</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,12 +17,11 @@
   --bg: #080D16;
   --panel: #111A26;
   --panel2: #172331;
-  --white: #E8EDF2;
+  --text: #E8EDF2;
   --muted: #A7B3C2;
   --line: #354657;
   --blue: #425B75;
   --teal: #7FAEAE;
-  --soft: #B3C8D4;
   --max: 1200px;
 }
 
@@ -30,73 +29,75 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 80px;
 }
 
 body {
   margin: 0;
   background: var(--bg);
-  color: var(--white);
+  color: var(--text);
   font-family: "DM Sans", sans-serif;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
-body::before {
-  content: "";
+#starfield {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at 15% 0%, #425B751f, transparent 40%),
-    radial-gradient(ellipse at 90% 40%, #7FAEAE10, transparent 36%),
-    var(--bg);
+  opacity: .55;
 }
 
-img { display: block; max-width: 100%; }
+.site {
+  position: relative;
+  z-index: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
 button, input { font: inherit; }
-
-button, a { -webkit-tap-highlight-color: transparent; }
 
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
   outline: 2px solid var(--teal);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
-a { color: inherit; text-decoration: none; }
-
 .container {
-  width: min(var(--max), calc(100% - 40px));
+  width: min(var(--max), calc(100% - 36px));
   margin: auto;
 }
 
 .eyebrow {
   color: var(--teal);
   font-size: .72rem;
-  text-transform: uppercase;
-  letter-spacing: .19em;
   font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
 }
 
 .muted { color: var(--muted); }
 
 .section {
-  padding: 86px 0;
+  padding: 76px 0;
   border-bottom: 1px solid #35465788;
 }
 
 .section-heading {
-  max-width: 740px;
+  max-width: 760px;
   margin-bottom: 32px;
 }
 
 .section-heading h2 {
   margin: 10px 0;
   font: 500 clamp(2rem, 5vw, 3.5rem)/1.12 "Space Grotesk", sans-serif;
-  letter-spacing: -.045em;
+  letter-spacing: -.04em;
 }
 
 .section-heading p { color: var(--muted); }
@@ -105,57 +106,84 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 43px;
   gap: 8px;
-  min-height: 44px;
-  padding: 10px 16px;
+  padding: 9px 15px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #111A26;
-  color: var(--white);
+  background: var(--panel);
+  color: var(--text);
   cursor: pointer;
-  font-size: .85rem;
-  transition: border-color .2s, background .2s;
+  font-size: .83rem;
+  transition: .2s;
 }
 
 .button:hover {
   border-color: var(--teal);
-  background: #172331;
+  background: var(--panel2);
 }
 
 .button-primary {
-  color: #080D16;
   background: var(--teal);
+  color: #080D16;
   border-color: var(--teal);
   font-weight: 700;
 }
 
 .button-primary:hover {
-  background: #A1C5C5;
+  background: #A6CACA;
   color: #080D16;
 }
 
-/* NAVIGATION */
+.panel {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: linear-gradient(145deg, #172331f0, #111A26f8);
+}
+
+.panel h3 {
+  margin: 8px 0;
+  font: 500 1.3rem "Space Grotesk", sans-serif;
+}
+
+.panel p {
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+.notice {
+  margin-top: 17px;
+  padding: 13px 16px;
+  border-left: 3px solid var(--teal);
+  background: #7FAEAE0C;
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+/* Navigation */
 
 .nav {
   position: sticky;
   top: 0;
-  z-index: 30;
-  background: #080D16ee;
+  z-index: 20;
+  background: #080D16EE;
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(16px);
 }
 
 .nav-inner {
-  min-height: 72px;
+  min-height: 70px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .brand {
   font: 700 1rem "Space Grotesk", sans-serif;
-  letter-spacing: .17em;
+  letter-spacing: .16em;
   white-space: nowrap;
 }
 
@@ -163,48 +191,37 @@ a { color: inherit; text-decoration: none; }
 
 .nav-links {
   display: flex;
-  align-items: center;
-  gap: 22px;
-  font-size: .82rem;
+  flex-wrap: wrap;
+  gap: 17px;
+  font-size: .78rem;
   color: var(--muted);
 }
 
 .nav-links a:hover { color: var(--teal); }
 
-/* HERO */
+/* Home page and video */
 
 .hero {
   min-height: 590px;
   display: grid;
   align-items: center;
-  overflow: hidden;
-  position: relative;
   border-bottom: 1px solid var(--line);
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
   background:
-    linear-gradient(90deg, #080D16 0%, #080D16ed 43%, #080D1640 100%),
-    radial-gradient(ellipse at 80% 45%, #425B7533, transparent 48%);
+    radial-gradient(ellipse at 85% 30%, #425B7530, transparent 45%),
+    radial-gradient(ellipse at 10% 90%, #7FAEAE10, transparent 40%);
 }
 
 .hero-grid {
-  position: relative;
-  z-index: 1;
   display: grid;
-  grid-template-columns: 1.05fr .95fr;
+  grid-template-columns: 1fr 1.05fr;
   align-items: center;
-  gap: 44px;
-  padding-block: 70px;
+  gap: 35px;
+  padding-block: 65px;
 }
 
 .hero h1 {
-  margin: 15px 0 8px;
-  font: 600 clamp(2.9rem, 7vw, 6.2rem)/1 "Space Grotesk", sans-serif;
+  margin: 14px 0 5px;
+  font: 600 clamp(2.7rem, 7vw, 6rem)/1 "Space Grotesk", sans-serif;
   letter-spacing: -.06em;
 }
 
@@ -212,14 +229,14 @@ a { color: inherit; text-decoration: none; }
 
 .hero-subtitle {
   margin: 14px 0;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  color: var(--soft);
+  color: #CBD6E0;
+  font-size: clamp(1.15rem, 2.1vw, 1.55rem);
 }
 
 .hero-copy {
-  max-width: 560px;
-  color: var(--muted);
+  max-width: 540px;
   margin-bottom: 25px;
+  color: var(--muted);
 }
 
 .hero-actions {
@@ -228,350 +245,351 @@ a { color: inherit; text-decoration: none; }
   gap: 10px;
 }
 
-.hero-image {
+.hero-status {
+  margin-top: 23px;
+  color: var(--muted);
+  font-size: .73rem;
+}
+
+.video-card {
   position: relative;
-  min-height: 345px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
   overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--line);
+  border-radius: 14px;
   background: var(--panel);
 }
 
-.hero-image img {
+.video-poster {
   width: 100%;
-  height: 345px;
-  object-fit: cover;
-  opacity: .87;
-}
-
-.image-credit {
+  height: 100%;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 35px 16px 13px;
-  font-size: .7rem;
-  color: white;
-  background: linear-gradient(transparent, #080D16ee);
+  inset: 0;
+  object-fit: cover;
 }
 
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-size: .75rem;
-  margin-top: 24px;
-}
-
-.status::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--teal);
-}
-
-/* PANELS */
-
-.panel {
-  min-width: 0;
-  padding: 23px;
-  border: 1px solid var(--line);
-  border-radius: 13px;
-  background: linear-gradient(145deg, #172331ee, #111A26f5);
-}
-
-.panel h3 {
-  margin: 7px 0;
-  font: 500 1.25rem "Space Grotesk", sans-serif;
-}
-
-.panel p { color: var(--muted); font-size: .88rem; }
-
-.notice {
-  border-left: 3px solid var(--teal);
-  background: #7FAEAE0d;
-  padding: 14px 17px;
-  margin-top: 18px;
-  font-size: .83rem;
-  color: var(--muted);
-}
-
-/* SOLAR SYSTEM */
-
-.system-layout {
+.video-overlay {
+  position: absolute;
+  inset: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(270px, .85fr);
-  gap: 24px;
-  align-items: center;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(transparent, #080D1677);
 }
 
-.system-stage {
+.play-button {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #E8EDF2AA;
+  border-radius: 50%;
+  color: white;
+  background: #080D1688;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.play-button:hover { background: #425B75DD; }
+
+.video-label {
+  max-width: 300px;
+  font-weight: 600;
+  text-shadow: 0 2px 14px #000;
+}
+
+.video-card iframe {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 650px;
-  aspect-ratio: 1;
-  position: relative;
-  margin: auto;
+  height: 100%;
+  border: 0;
+}
+
+/* Solar system */
+
+.solar-layout {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.system-visual {
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 14px;
   background:
-    radial-gradient(ellipse at center, #425B7522, transparent 66%),
+    radial-gradient(ellipse at center, #425B7525, transparent 70%),
     #080D16;
 }
 
-.system-stage::before,
-.system-stage::after {
-  content: "";
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  left: 21%;
-  top: 22%;
-  border-radius: 50%;
-  background: var(--white);
-  box-shadow:
-    75px 33px 0 #A7B3C2,
-    140px 110px 0 #A7B3C2,
-    280px 40px 0 #E8EDF2,
-    300px 240px 0 #A7B3C2,
-    -23px 210px 0 #E8EDF2;
+#solarSvg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.sun {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 7%;
-  aspect-ratio: 1;
-  min-width: 14px;
-  min-height: 14px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, #FFF3CE 0%, #D9B878 38%, #A8753D 72%);
-  border-radius: 50%;
-  box-shadow: 0 0 26px #D2A66A55, 0 0 65px #D2A66A25;
-  z-index: 3;
+.orbit-line {
+  fill: none;
+  stroke: #425B7570;
+  stroke-width: 1;
 }
 
-.orbit {
-  position: absolute;
-  width: var(--diameter);
-  height: var(--diameter);
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid #425B756b;
-  border-radius: 50%;
-}
-
-.orbit-track {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  animation: orbit-spin var(--period) linear infinite;
-}
-
-@keyframes orbit-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.system-paused .orbit-track { animation-play-state: paused; }
-
-.planet-dot {
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: var(--planet-size, 12px);
-  height: var(--planet-size, 12px);
-  border: 1px solid #DDE7EB88;
-  border-radius: 50%;
+.solar-planet {
   cursor: pointer;
-  padding: 0;
-  background: var(--planet-color, #7FAEAE);
-  box-shadow: 0 0 12px #7FAEAE30;
+  outline: none;
 }
 
-.planet-dot:hover,
-.planet-dot:focus-visible {
-  box-shadow: 0 0 18px #7FAEAEaa;
+.solar-planet:hover .planet-core,
+.solar-planet.selected .planet-core,
+.solar-planet:focus-visible .planet-core {
+  stroke: var(--teal);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 8px #7FAEAEAA);
 }
 
-.planet-dot.mercury { --planet-color: #A8A5A1; }
-.planet-dot.venus { --planet-color: #D9BE91; }
-.planet-dot.earth { --planet-color: #6B9DC0; }
-.planet-dot.mars { --planet-color: #C87864; }
-.planet-dot.jupiter { --planet-color: #C9AA8A; }
-.planet-dot.saturn {
-  --planet-color: #D8C6A4;
-  border-radius: 48% 48% 42% 42%;
-  outline: 3px solid #D2A66A66;
+.planet-label {
+  fill: #CBD6E0;
+  font: 12px "DM Sans", sans-serif;
+  pointer-events: none;
 }
-.planet-dot.uranus { --planet-color: #8AC7CF; }
-.planet-dot.neptune { --planet-color: #557FC7; }
 
 .system-caption {
-  position: absolute;
-  bottom: 12px;
-  left: 14px;
-  right: 14px;
+  padding: 11px 14px;
+  border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: .68rem;
-  pointer-events: none;
   text-align: center;
+  font-size: .72rem;
 }
 
-.system-tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 13px;
+.planet-photo-wrap {
+  position: relative;
+  min-height: 190px;
+  margin: 15px 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #080D16;
 }
 
-.speed-control {
-  margin-top: 15px;
+.planet-photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.planet-photo[hidden] { display: none; }
+
+.photo-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: 15px;
+  text-align: center;
   color: var(--muted);
-  font-size: .82rem;
+  font-size: .77rem;
 }
 
-.speed-control input { width: 100%; accent-color: var(--teal); }
+.photo-fallback[hidden] { display: none; }
 
-.planet-list {
+.fallback-planet {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 28% 24%, #C9D8E0, #425B75 65%, #080D16);
+  box-shadow: 0 0 28px #425B7555;
+}
+
+.planet-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  margin: 16px 0;
+  margin: 15px 0;
 }
 
 .planet-chip {
-  color: var(--muted);
-  background: #080D16;
+  padding: 7px 10px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  padding: 7px 10px;
+  color: var(--muted);
+  background: #080D16;
   cursor: pointer;
-  font-size: .78rem;
+  font-size: .77rem;
 }
 
 .planet-chip:hover,
 .planet-chip.selected {
-  color: var(--white);
   border-color: var(--teal);
-  background: #7FAEAE12;
+  color: var(--text);
+  background: #7FAEAE15;
 }
 
-.fact-list {
+.planet-facts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 18px 0;
+  gap: 9px;
+  margin: 15px 0;
 }
 
 .fact {
-  padding: 11px;
-  border-radius: 8px;
-  background: #080D16a6;
+  padding: 10px;
   border: 1px solid #35465799;
+  border-radius: 8px;
+  background: #080D16A6;
 }
 
-.fact-label {
-  font-size: .7rem;
-  color: var(--muted);
+.fact span {
   display: block;
+  color: var(--muted);
+  font-size: .69rem;
 }
 
-.fact strong { font-size: .88rem; }
-
-/* REAL IMAGE GALLERY */
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+.fact strong {
+  font-size: .83rem;
+  overflow-wrap: anywhere;
 }
 
-.image-card {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  border-radius: 12px;
+.detail-block {
+  padding: 13px 0;
+  border-top: 1px solid #35465777;
 }
 
-.image-card img {
-  width: 100%;
-  height: 205px;
-  object-fit: cover;
-  background: #080D16;
-  transition: transform .35s;
+.detail-block h4 {
+  margin: 0 0 5px;
+  color: var(--teal);
+  font-size: .77rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
 }
 
-.image-card:hover img { transform: scale(1.035); }
-
-.image-card-copy { padding: 16px; }
-
-.image-card h3 {
-  margin: 0 0 6px;
-  font: 500 1.05rem "Space Grotesk", sans-serif;
-}
-
-.image-card p {
+.detail-block p {
   margin: 0;
   color: var(--muted);
-  font-size: .78rem;
+  font-size: .83rem;
 }
 
-.image-card a {
-  display: inline-block;
-  margin-top: 12px;
+/* Deep astronomy details */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.info-card {
+  padding: 19px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(145deg, #172331DD, #111A26F5);
+}
+
+.info-symbol {
   color: var(--teal);
-  font-size: .78rem;
+  font: 500 1.5rem "Space Grotesk", sans-serif;
 }
 
-/* STAR MAP */
+.info-card h3 {
+  margin: 9px 0 6px;
+  font: 500 1.08rem "Space Grotesk", sans-serif;
+}
+
+.info-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .83rem;
+}
+
+.learn-more {
+  display: inline-block;
+  margin-top: 11px;
+  color: var(--teal);
+  font-size: .8rem;
+}
+
+/* Star map */
 
 .sky-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(230px, .7fr);
+  grid-template-columns: 1.2fr .8fr;
   gap: 20px;
+  align-items: start;
 }
 
-.sky-stage {
+.sky-frame {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: #080D16;
 }
 
-#skyCanvas {
+#skyMap {
   display: block;
   width: 100%;
-  height: 390px;
+  height: 365px;
   cursor: crosshair;
 }
 
 .sky-controls {
-  padding: 13px;
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
+  gap: 8px;
+  padding: 12px;
   border-top: 1px solid var(--line);
 }
 
-.sky-info {
-  min-height: 110px;
-  margin-top: 12px;
+.sky-note {
+  min-height: 100px;
   color: var(--muted);
-  font-size: .85rem;
+  font-size: .84rem;
 }
 
-/* SPHEREX COMPARISON */
+/* NASA gallery */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.gallery-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: #080D16;
+}
+
+.gallery-copy { padding: 15px; }
+
+.gallery-copy h3 {
+  margin: 0 0 6px;
+  font: 500 1.05rem "Space Grotesk", sans-serif;
+}
+
+.gallery-copy p {
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+/* SPHEREx */
 
 .compare-layout {
   display: grid;
-  grid-template-columns: 1.3fr .7fr;
-  gap: 24px;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 20px;
   align-items: start;
 }
 
@@ -584,16 +602,17 @@ a { color: inherit; text-decoration: none; }
 }
 
 .compare-frame > img,
-.compare-reveal img {
+.compare-layer img {
+  display: block;
   width: 100%;
-  height: 350px;
+  height: 320px;
   object-fit: cover;
 }
 
-.compare-reveal {
+.compare-layer {
   position: absolute;
   inset: 0;
-  clip-path: inset(0 50% 0 0);
+  clip-path: inset(0 0 0 50%);
   pointer-events: none;
 }
 
@@ -603,270 +622,363 @@ a { color: inherit; text-decoration: none; }
   bottom: 0;
   left: 50%;
   width: 2px;
-  background: var(--white);
-  box-shadow: 0 0 10px #080D16aa;
+  background: white;
   pointer-events: none;
 }
 
 .compare-divider::after {
   content: "↔";
   position: absolute;
-  left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  width: 36px;
-  height: 36px;
+  left: 50%;
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
-  color: #080D16;
-  background: var(--white);
   border-radius: 50%;
-  font-size: 1rem;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: #080D16;
 }
 
-.compare-label {
+.compare-tag {
   position: absolute;
+  top: 10px;
   z-index: 2;
-  top: 12px;
-  padding: 5px 9px;
+  padding: 5px 8px;
   border-radius: 5px;
-  color: var(--white);
-  background: #080D16dd;
-  font-size: .7rem;
+  color: white;
+  background: #080D16DD;
+  font-size: .67rem;
 }
 
-.compare-label.left { left: 12px; }
-.compare-label.right { right: 12px; }
+.compare-tag.left { left: 10px; }
+.compare-tag.right { right: 10px; }
 
-.range-wrap { margin-top: 15px; }
+.range-wrap { margin-top: 14px; }
 .range-wrap input { width: 100%; accent-color: var(--teal); }
 
-.compare-explain {
-  margin-top: 14px;
-  color: var(--muted);
-  font-size: .83rem;
-}
-
-/* EXTERNAL EXPLORERS */
-
-.external-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.external-card {
-  padding: 22px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  border-radius: 12px;
-}
-
-.external-card h3 { margin: 9px 0; }
-.external-card p { color: var(--muted); font-size: .86rem; }
-
-/* FOOTER */
+/* Footer and responsive layouts */
 
 footer {
-  padding: 28px 0;
+  padding: 27px 0;
   color: var(--muted);
-  font-size: .76rem;
+  font-size: .75rem;
 }
 
 .footer-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 14px;
 }
 
-/* RESPONSIVE */
-
 @media (max-width: 900px) {
-  .hero-grid, .system-layout, .sky-layout, .compare-layout {
+  .hero-grid,
+  .solar-layout,
+  .sky-layout,
+  .compare-layout {
     grid-template-columns: 1fr;
   }
 
-  .hero-image { max-width: 700px; }
   .gallery { grid-template-columns: 1fr 1fr; }
-  .system-stage { max-width: 600px; }
+  .info-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 600px) {
-  .container { width: calc(100% - 28px); }
-  .nav-inner { min-height: 64px; }
-  .brand { font-size: .84rem; }
-  .nav-links { gap: 12px; font-size: .72rem; }
+  .container { width: calc(100% - 26px); }
+  .nav-inner { min-height: 62px; }
+  .brand { font-size: .82rem; }
+  .nav-links { gap: 11px; font-size: .7rem; }
   .nav-links a:nth-child(1),
-  .nav-links a:nth-child(2) { display: none; }
+  .nav-links a:nth-child(3) { display: none; }
 
-  .hero-grid { padding-block: 45px; gap: 22px; }
-  .hero h1 { font-size: clamp(2.5rem, 14vw, 4rem); }
-  .hero-image img { height: 245px; }
-  .hero-image { min-height: 245px; }
+  .hero-grid { padding-block: 42px; gap: 22px; }
+  .hero h1 { font-size: clamp(2.5rem, 13vw, 4rem); }
+  .section { padding: 61px 0; }
 
-  .section { padding: 65px 0; }
-  .gallery, .external-grid { grid-template-columns: 1fr; }
-  .image-card img { height: 230px; }
+  .info-grid,
+  .gallery { grid-template-columns: 1fr; }
+
+  .gallery-card img { height: 230px; }
   .panel { padding: 16px; }
-  #skyCanvas { height: 300px; }
+  #skyMap { height: 295px; }
+
   .compare-frame > img,
-  .compare-reveal img { height: 260px; }
+  .compare-layer img { height: 245px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
 }
 </style>
 </head>
 
 <body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+<div class="site">
 
 <header class="nav">
   <div class="container nav-inner">
-    <a href="#home" class="brand">ANDRO<span>MEDA</span></a>
+    <a class="brand" href="#home">ANDRO<span>MEDA</span></a>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="#solar-system">Solar system</a>
-      <a href="#sky-atlas">Sky atlas</a>
-      <a href="#gallery">Images</a>
-      <a href="#spherex">SPHEREx lab</a>
+      <a href="#solar-system">Planets</a>
+      <a href="#knowledge">Discover</a>
+      <a href="#sky-atlas">Star atlas</a>
+      <a href="#spherex">SPHEREx</a>
     </nav>
   </div>
 </header>
 
 <main>
 
-<!-- HERO -->
+<!-- HOME VIDEO -->
 
 <section class="hero" id="home">
   <div class="container hero-grid">
     <div>
-      <div class="eyebrow">Independent astronomy explorer</div>
+      <div class="eyebrow">An independent astronomy explorer</div>
       <h1>ANDRO<span>MEDA</span></h1>
-      <p class="hero-subtitle">A closer look at the universe.</p>
+      <p class="hero-subtitle">Look closer. Understand more.</p>
 
       <p class="hero-copy">
-        Explore planetary orbits, discover patterns in a star field,
-        view real NASA imagery, and investigate how infrared
-        observations reveal different parts of the cosmos.
+        Journey from the planets in our cosmic neighbourhood to distant stars
+        and galaxies. Explore worlds, learn how astronomers study light, and
+        investigate what the universe can reveal.
       </p>
 
       <div class="hero-actions">
-        <a class="button button-primary" href="#solar-system">Explore the system ↗</a>
-        <a class="button" href="#spherex">Open investigation lab</a>
+        <a class="button button-primary" href="#solar-system">Explore the planets ↗</a>
+        <a class="button" href="#spherex">Enter the investigation lab</a>
       </div>
 
-      <div class="status">Observatory Dark · Astronomy learning concept</div>
+      <p class="hero-status">OBSERVATORY DARK · A SPACE SCIENCE LEARNING PROJECT</p>
     </div>
 
-    <figure class="hero-image">
+    <div class="video-card" id="videoCard">
       <img
-        src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia05/pia05425/PIA05425.jpg?crop=faces%2Cfocalpoint&fit=clip&h=649&w=1166"
-        alt="Saturn and its rings photographed by the Cassini spacecraft"
-        fetchpriority="high"
+        class="video-poster"
+        src="https://img.youtube.com/vi/libKVRa01L8/hqdefault.jpg"
+        alt="Video preview for a Solar System explainer"
       >
-      <figcaption class="image-credit">
-        Saturn in Full View · NASA/JPL/Space Science Institute
-      </figcaption>
-    </figure>
+      <div class="video-overlay" id="videoOverlay">
+        <button class="play-button" id="playVideo" aria-label="Play space video">▶</button>
+        <div class="video-label">Begin your journey through the Solar System</div>
+        <span class="muted" style="font-size:.7rem">Video player · Internet required</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- SOLAR SYSTEM -->
+<!-- CLICKABLE, MOVING SOLAR SYSTEM -->
 
 <section class="section" id="solar-system">
   <div class="container">
     <div class="section-heading">
       <div class="eyebrow">01 / Planetary explorer</div>
-      <h2>Our solar system.</h2>
+      <h2>Choose a world.</h2>
       <p>
-        Select any planet to explore a few facts. This animated
-        orbital diagram is schematic: planet sizes, distances and
-        speeds are not represented to scale.
+        Click a planet in the moving diagram or choose its name below.
+        Explore its measurements, atmosphere, structure, missions and open
+        scientific questions.
       </p>
     </div>
 
-    <div class="system-layout">
+    <div class="solar-layout">
       <div>
-        <div class="system-stage" id="systemStage" aria-label="Interactive schematic of the solar system">
-          <div class="sun" title="Sun"></div>
+        <div class="system-visual">
+          <svg id="solarSvg" viewBox="0 0 860 540"
+            role="img" aria-label="Animated schematic Solar System. Select a planet to explore it.">
 
-          <div class="orbit" style="--diameter:15%;--period:4s">
-            <div class="orbit-track">
-              <button class="planet-dot mercury" data-planet="Mercury" style="--planet-size:7px" aria-label="Select Mercury" title="Mercury"></button>
-            </div>
+            <defs>
+              <radialGradient id="sunGradient">
+                <stop offset="0%" stop-color="#FFF5D7"/>
+                <stop offset="58%" stop-color="#E0BE78"/>
+                <stop offset="100%" stop-color="#9C6E42"/>
+              </radialGradient>
+
+              <radialGradient id="mercuryGradient" cx="28%" cy="25%">
+                <stop offset="0%" stop-color="#C7C8C5"/>
+                <stop offset="100%" stop-color="#535C66"/>
+              </radialGradient>
+
+              <radialGradient id="venusGradient" cx="28%" cy="25%">
+                <stop offset="0%" stop-color="#E9D5B1"/>
+                <stop offset="100%" stop-color="#8F7051"/>
+              </radialGradient>
+
+              <radialGradient id="earthGradient" cx="28%" cy="25%">
+                <stop offset="0%" stop-color="#B7D8DC"/>
+                <stop offset="50%" stop-color="#3B8B9D"/>
+                <stop offset="100%" stop-color="#1A2C52"/>
+              </radialGradient>
+
+              <radialGradient id="marsGradient" cx="28%" cy="25%">
+                <stop offset="0%" stop-color="#E9AB87"/>
+                <stop offset="100%" stop-color="#8D3F35"/>
+              </radialGradient>
+
+              <radialGradient id="jupiterGradient" cx="25%" cy="20%">
+                <stop offset="0%" stop-color="#F0DFC3"/>
+                <stop offset="55%" stop-color="#BD9471"/>
+                <stop offset="100%" stop-color="#765849"/>
+              </radialGradient>
+
+              <radialGradient id="saturnGradient" cx="28%" cy="25%">
+                <stop offset="0%" stop-color="#F5E7BC"/>
+                <stop offset="100%" stop-color="#A38E65"/>
+              </radialGradient>
+
+              <radialGradient id="uranusGradient" cx="28%" cy="25%">
+                <stop offset="0%" stop-color="#D1EBE9"/>
+                <stop offset="100%" stop-color="#589BA9"/>
+              </radialGradient>
+
+              <radialGradient id="neptuneGradient" cx="28%" cy="25%">
+                <stop offset="0%" stop-color="#9BB6F2"/>
+                <stop offset="100%" stop-color="#203C89"/>
+              </radialGradient>
+            </defs>
+
+            <g fill="none" stroke="#425B7570" stroke-width="1">
+              <ellipse cx="430" cy="270" rx="45" ry="30"/>
+              <ellipse cx="430" cy="270" rx="75" ry="50"/>
+              <ellipse cx="430" cy="270" rx="105" ry="70"/>
+              <ellipse cx="430" cy="270" rx="140" ry="93"/>
+              <ellipse cx="430" cy="270" rx="180" ry="120"/>
+              <ellipse cx="430" cy="270" rx="220" ry="146"/>
+              <ellipse cx="430" cy="270" rx="260" ry="172"/>
+              <ellipse cx="430" cy="270" rx="300" ry="198"/>
+            </g>
+
+            <circle cx="430" cy="270" r="37" fill="#D2A66A" opacity=".08"/>
+            <circle cx="430" cy="270" r="25" fill="#D2A66A" opacity=".1"/>
+            <circle cx="430" cy="270" r="15" fill="url(#sunGradient)"/>
+            <text x="430" y="302" text-anchor="middle"
+              fill="#E7CE9A" font-size="12">SUN</text>
+
+            <g class="solar-planet" data-planet="Mercury"
+              role="button" tabindex="0" aria-label="Select Mercury">
+              <circle class="planet-core" r="6" fill="url(#mercuryGradient)" stroke="#8E969D"/>
+              <text class="planet-label" x="11" y="-10">Mercury</text>
+              <animateMotion dur="14s" repeatCount="indefinite"
+                path="M 430 240 A 45 30 0 1 1 430 300 A 45 30 0 1 1 430 240"/>
+            </g>
+
+            <g class="solar-planet" data-planet="Venus"
+              role="button" tabindex="0" aria-label="Select Venus">
+              <circle class="planet-core" r="9" fill="url(#venusGradient)" stroke="#A38E65"/>
+              <text class="planet-label" x="13" y="-10">Venus</text>
+              <animateMotion dur="21s" repeatCount="indefinite"
+                path="M 430 220 A 75 50 0 1 1 430 320 A 75 50 0 1 1 430 220"/>
+            </g>
+
+            <g class="solar-planet selected" data-planet="Earth"
+              role="button" tabindex="0" aria-label="Select Earth">
+              <circle class="planet-core" r="10" fill="url(#earthGradient)" stroke="#5C91B4"/>
+              <text class="planet-label" x="13" y="-10">Earth</text>
+              <animateMotion dur="29s" repeatCount="indefinite"
+                path="M 430 200 A 105 70 0 1 1 430 340 A 105 70 0 1 1 430 200"/>
+            </g>
+
+            <g class="solar-planet" data-planet="Mars"
+              role="button" tabindex="0" aria-label="Select Mars">
+              <circle class="planet-core" r="8" fill="url(#marsGradient)" stroke="#B45F4C"/>
+              <text class="planet-label" x="12" y="-9">Mars</text>
+              <animateMotion dur="38s" repeatCount="indefinite"
+                path="M 430 177 A 140 93 0 1 1 430 363 A 140 93 0 1 1 430 177"/>
+            </g>
+
+            <g class="solar-planet" data-planet="Jupiter"
+              role="button" tabindex="0" aria-label="Select Jupiter">
+              <circle class="planet-core" r="17" fill="url(#jupiterGradient)" stroke="#C9A883"/>
+              <path d="M -15 -4 Q 0 -8 15 -3 M -15 3 Q 0 7 15 4"
+                fill="none" stroke="#775D50" stroke-width="2"/>
+              <text class="planet-label" x="21" y="-13">Jupiter</text>
+              <animateMotion dur="51s" repeatCount="indefinite"
+                path="M 430 150 A 180 120 0 1 1 430 390 A 180 120 0 1 1 430 150"/>
+            </g>
+
+            <g class="solar-planet" data-planet="Saturn"
+              role="button" tabindex="0" aria-label="Select Saturn">
+              <ellipse cx="0" cy="0" rx="25" ry="8" transform="rotate(-18)"
+                fill="none" stroke="#C6B691" stroke-width="5"/>
+              <circle class="planet-core" r="12" fill="url(#saturnGradient)" stroke="#CEB98F"/>
+              <ellipse cx="0" cy="0" rx="26" ry="7" transform="rotate(-18)"
+                fill="none" stroke="#E8D8B8" stroke-width="2"/>
+              <text class="planet-label" x="29" y="-12">Saturn</text>
+              <animateMotion dur="64s" repeatCount="indefinite"
+                path="M 430 124 A 220 146 0 1 1 430 416 A 220 146 0 1 1 430 124"/>
+            </g>
+
+            <g class="solar-planet" data-planet="Uranus"
+              role="button" tabindex="0" aria-label="Select Uranus">
+              <circle class="planet-core" r="11" fill="url(#uranusGradient)" stroke="#8AC7CF"/>
+              <text class="planet-label" x="14" y="-10">Uranus</text>
+              <animateMotion dur="79s" repeatCount="indefinite"
+                path="M 430 98 A 260 172 0 1 1 430 442 A 260 172 0 1 1 430 98"/>
+            </g>
+
+            <g class="solar-planet" data-planet="Neptune"
+              role="button" tabindex="0" aria-label="Select Neptune">
+              <circle class="planet-core" r="11" fill="url(#neptuneGradient)" stroke="#638BD2"/>
+              <text class="planet-label" x="14" y="-10">Neptune</text>
+              <animateMotion dur="96s" repeatCount="indefinite"
+                path="M 430 72 A 300 198 0 1 1 430 468 A 300 198 0 1 1 430 72"/>
+            </g>
+          </svg>
+
+          <div class="system-caption">
+            ANIMATED ORBITS · ACCELERATED MODEL · NOT TO SCALE
           </div>
-
-          <div class="orbit" style="--diameter:23%;--period:7s">
-            <div class="orbit-track">
-              <button class="planet-dot venus" data-planet="Venus" style="--planet-size:10px" aria-label="Select Venus" title="Venus"></button>
-            </div>
-          </div>
-
-          <div class="orbit" style="--diameter:33%;--period:10s">
-            <div class="orbit-track">
-              <button class="planet-dot earth" data-planet="Earth" style="--planet-size:11px" aria-label="Select Earth" title="Earth"></button>
-            </div>
-          </div>
-
-          <div class="orbit" style="--diameter:43%;--period:14s">
-            <div class="orbit-track">
-              <button class="planet-dot mars" data-planet="Mars" style="--planet-size:9px" aria-label="Select Mars" title="Mars"></button>
-            </div>
-          </div>
-
-          <div class="orbit" style="--diameter:55%;--period:23s">
-            <div class="orbit-track">
-              <button class="planet-dot jupiter" data-planet="Jupiter" style="--planet-size:20px" aria-label="Select Jupiter" title="Jupiter"></button>
-            </div>
-          </div>
-
-          <div class="orbit" style="--diameter:68%;--period:30s">
-            <div class="orbit-track">
-              <button class="planet-dot saturn" data-planet="Saturn" style="--planet-size:16px" aria-label="Select Saturn" title="Saturn"></button>
-            </div>
-          </div>
-
-          <div class="orbit" style="--diameter:82%;--period:39s">
-            <div class="orbit-track">
-              <button class="planet-dot uranus" data-planet="Uranus" style="--planet-size:12px" aria-label="Select Uranus" title="Uranus"></button>
-            </div>
-          </div>
-
-          <div class="orbit" style="--diameter:96%;--period:48s">
-            <div class="orbit-track">
-              <button class="planet-dot neptune" data-planet="Neptune" style="--planet-size:12px" aria-label="Select Neptune" title="Neptune"></button>
-            </div>
-          </div>
-
-          <div class="system-caption">SCHEMATIC ORBITS · NOT TO SCALE</div>
         </div>
 
-        <div class="system-tools">
-          <button class="button" id="motionButton">Pause orbital motion</button>
-          <button class="button" id="resetSystem">Reset view</button>
+        <div style="display:flex; flex-wrap:wrap; gap:9px; margin-top:12px">
+          <button class="button" id="motionButton">Pause planetary motion</button>
+          <label class="muted" style="font-size:.8rem; align-self:center">
+            Animation speed
+            <input id="speedRange" type="range" min=".5" max="3" step=".5" value="1"
+              style="width:110px; vertical-align:middle; accent-color:var(--teal)">
+          </label>
         </div>
 
-        <div class="speed-control">
-          <label for="speedRange">Animation speed</label>
-          <input id="speedRange" type="range" min="0.5" max="3" step="0.5" value="1">
-        </div>
+        <p class="notice">
+          This is an accelerated orbital illustration, not a calculation of the
+          planets' current astronomical positions. NASA Eyes provides a more
+          accurate 3D experience using mission data.
+        </p>
+        <a class="button" href="https://science.nasa.gov/eyes/" target="_blank"
+          rel="noopener noreferrer">Open NASA Eyes on the Solar System ↗</a>
       </div>
 
       <article class="panel" aria-live="polite">
-        <div class="eyebrow">Planet details</div>
+        <div class="eyebrow" id="planetType">Terrestrial planet</div>
         <h3 id="planetName">Earth</h3>
-        <p id="planetDescription">
-          Our home planet, with liquid water on the surface and an atmosphere
-          that supports life as we know it.
-        </p>
+        <p id="planetIntro"></p>
 
-        <div class="planet-list" aria-label="Choose a planet">
+        <div class="planet-photo-wrap">
+          <img id="planetPhoto" class="planet-photo" alt="" hidden>
+          <div class="photo-fallback" id="photoFallback">
+            <div class="fallback-planet" id="fallbackPlanet"></div>
+            <span id="photoStatus">Loading a NASA image when available…</span>
+          </div>
+        </div>
+
+        <div class="planet-facts">
+          <div class="fact"><span>Diameter</span><strong id="planetDiameter"></strong></div>
+          <div class="fact"><span>Mean Sun distance</span><strong id="planetDistance"></strong></div>
+          <div class="fact"><span>Year length</span><strong id="planetYear"></strong></div>
+          <div class="fact"><span>Rotation period</span><strong id="planetDay"></strong></div>
+          <div class="fact"><span>Surface gravity</span><strong id="planetGravity"></strong></div>
+          <div class="fact"><span>Moons</span><strong id="planetMoons"></strong></div>
+        </div>
+
+        <div class="planet-buttons" aria-label="Select a planet">
           <button class="planet-chip" data-planet="Mercury">Mercury</button>
           <button class="planet-chip" data-planet="Venus">Venus</button>
           <button class="planet-chip selected" data-planet="Earth">Earth</button>
@@ -877,297 +989,313 @@ footer {
           <button class="planet-chip" data-planet="Neptune">Neptune</button>
         </div>
 
-        <div class="fact-list">
-          <div class="fact">
-            <span class="fact-label">Solar system order</span>
-            <strong id="planetOrder">3rd planet</strong>
-          </div>
-          <div class="fact">
-            <span class="fact-label">Length of year</span>
-            <strong id="planetYear">365 days</strong>
-          </div>
+        <div class="detail-block">
+          <h4>Atmosphere and composition</h4>
+          <p id="planetAtmosphere"></p>
+        </div>
+        <div class="detail-block">
+          <h4>Surface and structure</h4>
+          <p id="planetSurface"></p>
+        </div>
+        <div class="detail-block">
+          <h4>Exploration history</h4>
+          <p id="planetExploration"></p>
+        </div>
+        <div class="detail-block">
+          <h4>Open scientific question</h4>
+          <p id="planetQuestion"></p>
         </div>
 
-        <a id="planetLink" class="button" href="https://science.nasa.gov/earth/" target="_blank" rel="noopener noreferrer">
-          Read NASA facts ↗
-        </a>
-
-        <p class="notice">
-          For a full 3D environment with mission data and spacecraft,
-          open NASA's interactive solar-system explorer below.
-        </p>
-      </article>
-    </div>
-
-    <div class="external-grid" style="margin-top:22px">
-      <article class="external-card">
-        <div class="eyebrow">Real 3D explorer</div>
-        <h3>NASA Eyes on the Solar System</h3>
-        <p>
-          Explore planets, moons and spacecraft in NASA's browser-based
-          3D experience.
-        </p>
-        <a class="button button-primary" href="https://science.nasa.gov/eyes/" target="_blank" rel="noopener noreferrer">
-          Launch NASA Eyes ↗
-        </a>
-      </article>
-
-      <article class="external-card">
-        <div class="eyebrow">Planetarium</div>
-        <h3>Stellarium Web</h3>
-        <p>
-          Continue with a realistic planetarium experience and explore the sky
-          using Stellarium.
-        </p>
-        <a class="button" href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">
-          Open Stellarium ↗
-        </a>
+        <a id="planetNasaLink" class="button button-primary"
+          href="https://science.nasa.gov/earth/" target="_blank"
+          rel="noopener noreferrer">Read NASA's planet guide ↗</a>
       </article>
     </div>
   </div>
 </section>
 
-<!-- REAL SPACE IMAGES -->
+<!-- DEEPER ASTRONOMY TOPICS -->
 
-<section class="section" id="gallery">
+<section class="section" id="knowledge">
   <div class="container">
     <div class="section-heading">
-      <div class="eyebrow">02 / Image observatory</div>
-      <h2>Real views of space.</h2>
+      <div class="eyebrow">02 / Cosmic field guide</div>
+      <h2>How the universe fits together.</h2>
       <p>
-        A small curated gallery of NASA imagery. Open each original source
-        to read the image description and credits.
+        The Solar System is only a small neighbourhood inside the Milky Way.
+        Light, gravity, chemistry and time help astronomers investigate worlds
+        that no spacecraft can visit directly.
       </p>
     </div>
 
-    <div class="gallery">
-      <article class="image-card">
-        <img
-          src="https://assets.science.nasa.gov/dynamicimage/assets/science/esd/climate/2023/12/ImageWall5_1920x1200-80.jpg?crop=faces%2Cfocalpoint&fit=clip&h=1200&w=1920"
-          alt="Blue Marble view of planet Earth"
-          loading="lazy"
-        >
-        <div class="image-card-copy">
-          <h3>Earth</h3>
-          <p>A satellite-based composite of our home planet.</p>
-          <a href="https://science.nasa.gov/resource/blue-marble/" target="_blank" rel="noopener noreferrer">
-            NASA image source ↗
-          </a>
-        </div>
+    <div class="info-grid">
+      <article class="info-card">
+        <div class="info-symbol">☉</div>
+        <h3>The Sun</h3>
+        <p>The Sun is a star powered by nuclear fusion in its core. Its gravity dominates the Solar System, while its light and solar wind affect planets, moons and spacecraft.</p>
+        <a class="learn-more" href="https://science.nasa.gov/sun/" target="_blank" rel="noopener noreferrer">Explore the Sun ↗</a>
       </article>
 
-      <article class="image-card">
-        <img
-          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/a/0/PIA04866-1.jpg?crop=faces%2Cfocalpoint&fit=clip&h=2400&w=1920"
-          alt="Jupiter photographed by the Cassini spacecraft"
-          loading="lazy"
-        >
-        <div class="image-card-copy">
-          <h3>Jupiter</h3>
-          <p>A true-colour mosaic captured by NASA's Cassini spacecraft.</p>
-          <a href="https://science.nasa.gov/resource/cassini-jupiter-portrait/" target="_blank" rel="noopener noreferrer">
-            NASA image source ↗
-          </a>
-        </div>
+      <article class="info-card">
+        <div class="info-symbol">01</div>
+        <h3>Planet formation</h3>
+        <p>Planets formed from a disk of gas and dust around the young Sun. Tiny particles collided, stuck together and accumulated into larger bodies through gravity and repeated impacts.</p>
+        <a class="learn-more" href="https://science.nasa.gov/solar-system/" target="_blank" rel="noopener noreferrer">Solar System science ↗</a>
       </article>
 
-      <article class="image-card">
-        <img
-          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia05/pia05425/PIA05425.jpg?crop=faces%2Cfocalpoint&fit=clip&h=649&w=1166"
-          alt="Saturn and its rings seen by Cassini"
-          loading="lazy"
-        >
-        <div class="image-card-copy">
-          <h3>Saturn</h3>
-          <p>A view of the planet and its expansive ring system.</p>
-          <a href="https://science.nasa.gov/resource/saturn-in-full-view/" target="_blank" rel="noopener noreferrer">
-            NASA image source ↗
-          </a>
-        </div>
+      <article class="info-card">
+        <div class="info-symbol">◌</div>
+        <h3>Rocky planets</h3>
+        <p>Mercury, Venus, Earth and Mars have solid surfaces. Their differences in atmosphere, geology, magnetic fields and climate reveal the range of outcomes possible for rocky worlds.</p>
+        <a class="learn-more" href="https://science.nasa.gov/solar-system/planets/" target="_blank" rel="noopener noreferrer">Planet guide ↗</a>
       </article>
-    </div>
 
-    <div class="notice">
-      Image credits: NASA, NASA/JPL/Space Science Institute, and the
-      original teams cited on their source pages. ANDROMEDA is an
-      independent project and is not an official NASA website.
+      <article class="info-card">
+        <div class="info-symbol">◎</div>
+        <h3>Giant planets</h3>
+        <p>Jupiter and Saturn are gas giants; Uranus and Neptune are ice giants. Their deep interiors, rings, storms and moon systems help researchers test models of planetary formation.</p>
+        <a class="learn-more" href="https://science.nasa.gov/solar-system/planets/" target="_blank" rel="noopener noreferrer">Explore planets ↗</a>
+      </article>
+
+      <article class="info-card">
+        <div class="info-symbol">✦</div>
+        <h3>Moons and oceans</h3>
+        <p>Some moons have atmospheres, volcanoes or hidden oceans beneath icy crusts. Europa and Enceladus are especially interesting targets in research on potentially habitable environments.</p>
+        <a class="learn-more" href="https://science.nasa.gov/solar-system/moons/" target="_blank" rel="noopener noreferrer">Explore moons ↗</a>
+      </article>
+
+      <article class="info-card">
+        <div class="info-symbol">☄</div>
+        <h3>Asteroids and comets</h3>
+        <p>Asteroids preserve clues about early Solar System materials. Comets contain ice and dust, and can develop a glowing cloud and tails when solar heating releases gas and particles.</p>
+        <a class="learn-more" href="https://science.nasa.gov/solar-system/asteroids/" target="_blank" rel="noopener noreferrer">Explore small bodies ↗</a>
+      </article>
+
+      <article class="info-card">
+        <div class="info-symbol">★</div>
+        <h3>Stars and stellar evolution</h3>
+        <p>Stars form as dense clouds collapse under gravity. A star's mass influences its temperature, brightness, lifetime and final evolutionary state.</p>
+        <a class="learn-more" href="https://science.nasa.gov/universe/stars/" target="_blank" rel="noopener noreferrer">Discover stars ↗</a>
+      </article>
+
+      <article class="info-card">
+        <div class="info-symbol">⟡</div>
+        <h3>Galaxies</h3>
+        <p>Galaxies contain stars, gas, dust and dark matter bound by gravity. The Milky Way contains our Sun and billions of other stars, alongside a wide range of planetary systems.</p>
+        <a class="learn-more" href="https://science.nasa.gov/universe/galaxies/" target="_blank" rel="noopener noreferrer">Explore galaxies ↗</a>
+      </article>
+
+      <article class="info-card">
+        <div class="info-symbol">◉</div>
+        <h3>Black holes</h3>
+        <p>Black holes are regions where gravity is so strong that light cannot escape from within the event horizon. Astronomers study their surroundings and gravitational effects.</p>
+        <a class="learn-more" href="https://science.nasa.gov/universe/black-holes/" target="_blank" rel="noopener noreferrer">Explore black holes ↗</a>
+      </article>
+
+      <article class="info-card">
+        <div class="info-symbol">λ</div>
+        <h3>Light and wavelengths</h3>
+        <p>Visible light is only a small part of the electromagnetic spectrum. Infrared, radio waves, ultraviolet and X-rays reveal different temperatures, materials and energetic processes.</p>
+        <a class="learn-more" href="https://science.nasa.gov/ems/" target="_blank" rel="noopener noreferrer">Explore the spectrum ↗</a>
+      </article>
+
+      <article class="info-card">
+        <div class="info-symbol">⊹</div>
+        <h3>Exoplanets</h3>
+        <p>Exoplanets orbit stars beyond our Sun. Researchers discover them by measuring changes in starlight, stellar motion or directly captured light, then investigate their environments.</p>
+        <a class="learn-more" href="https://science.nasa.gov/exoplanets/" target="_blank" rel="noopener noreferrer">Explore other worlds ↗</a>
+      </article>
+
+      <article class="info-card">
+        <div class="info-symbol">∞</div>
+        <h3>Distance and cosmic time</h3>
+        <p>Light takes time to travel. Looking at distant objects therefore lets us see them as they were in the past, making astronomy a way to investigate the universe's history.</p>
+        <a class="learn-more" href="https://science.nasa.gov/universe/" target="_blank" rel="noopener noreferrer">Explore the universe ↗</a>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- STAR MAP -->
+<!-- CLICKABLE STAR MAP -->
 
 <section class="section" id="sky-atlas">
   <div class="container">
     <div class="section-heading">
       <div class="eyebrow">03 / Star atlas</div>
-      <h2>Explore a field of stars.</h2>
-      <p>
-        Click the star field to select a marked star. Turn constellation
-        guide lines and labels on or off. This is an educational illustration,
-        not a calibrated live-sky chart.
-      </p>
+      <h2>Find patterns in the stars.</h2>
+      <p>Click labelled stars to learn about them. Toggle constellation lines and labels. The diagram is illustrative, not a calibrated live-sky chart.</p>
     </div>
 
     <div class="sky-layout">
-      <div class="sky-stage">
-        <canvas id="skyCanvas" aria-label="Interactive illustrative star map">
-          Your browser does not support canvas.
+      <div class="sky-frame">
+        <canvas id="skyMap" aria-label="Interactive illustrative star field">
+          Your browser does not support this star map.
         </canvas>
         <div class="sky-controls">
-          <button class="button" id="constellationToggle">Hide constellation lines</button>
-          <button class="button" id="labelToggle">Hide star labels</button>
-          <button class="button" id="redrawSky">Regenerate star field</button>
+          <button class="button" id="toggleConstellations">Hide constellation lines</button>
+          <button class="button" id="toggleStarLabels">Hide labels</button>
+          <button class="button" id="resetSky">Reset map</button>
         </div>
       </div>
 
       <article class="panel">
-        <div class="eyebrow">Selected object</div>
-        <h3 id="starTitle">The night sky</h3>
-        <p id="starInfo" class="sky-info">
-          Click a named star on the map. Star positions in this illustration
-          are arranged for learning and are not live astronomical coordinates.
-        </p>
-
-        <a class="button" href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">
-          Explore the real sky in Stellarium ↗
-        </a>
-
-        <p class="notice">
-          A scientifically accurate sky map needs a star catalogue,
-          observing location, date and time. This demonstration does not
-          calculate those values.
-        </p>
+        <div class="eyebrow">Selected star</div>
+        <h3 id="starName">Welcome to the star atlas</h3>
+        <p id="starDescription" class="sky-note">Select a labelled star on the map to learn more about it.</p>
+        <a class="button button-primary" href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer">Open Stellarium Web ↗</a>
+        <div class="notice">The star positions are illustrative. A real sky chart needs a star catalogue, observing time and location.</div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- SPHEREX -->
+<!-- REAL NASA IMAGERY -->
+
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">04 / Image observatory</div>
+      <h2>Real views from space.</h2>
+      <p>Explore photographs and scientific visualisations from NASA. Read the original source pages for their image credits and scientific context.</p>
+    </div>
+
+    <div class="gallery">
+      <article class="gallery-card">
+        <img
+          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia05/pia05425/PIA05425.jpg?crop=faces%2Cfocalpoint&fit=clip&h=649&w=1166"
+          alt="Saturn and its rings imaged by Cassini"
+          loading="lazy">
+        <div class="gallery-copy">
+          <h3>Saturn</h3>
+          <p>A gas giant surrounded by rings of icy and rocky particles.</p>
+          <a class="learn-more" href="https://science.nasa.gov/saturn/" target="_blank" rel="noopener noreferrer">NASA's Saturn guide ↗</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/a/0/PIA04866-1.jpg?crop=faces%2Cfocalpoint&fit=clip&h=1200&w=960"
+          alt="Jupiter with its cloud bands"
+          loading="lazy">
+        <div class="gallery-copy">
+          <h3>Jupiter</h3>
+          <p>A giant planet with cloud bands, immense storms and many moons.</p>
+          <a class="learn-more" href="https://science.nasa.gov/jupiter/" target="_blank" rel="noopener noreferrer">NASA's Jupiter guide ↗</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="https://www.nasa.gov/wp-content/uploads/2025/05/1-pia26352-spherexs-dust-cloud-reveal.jpg?w=1024"
+          alt="Infrared image of a dust cloud observed by SPHEREx"
+          loading="lazy">
+        <div class="gallery-copy">
+          <h3>The infrared sky</h3>
+          <p>Infrared observations reveal features that ordinary visible light can miss.</p>
+          <a class="learn-more" href="https://science.nasa.gov/photojournal/spherexs-dust-cloud-reveal/" target="_blank" rel="noopener noreferrer">NASA image source ↗</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="notice">Image credits: NASA and its mission teams, as described on the linked source pages. ANDROMEDA is an independent educational project, not an official NASA website.</div>
+  </div>
+</section>
+
+<!-- SPHEREX COMPARISON LAB -->
 
 <section class="section" id="spherex">
   <div class="container">
     <div class="section-heading">
-      <div class="eyebrow">04 / SPHEREx investigation lab</div>
+      <div class="eyebrow">05 / SPHEREx investigation lab</div>
       <h2>One sky. Different wavelengths.</h2>
-      <p>
-        SPHEREx observes infrared light, which is invisible to human eyes.
-        Scientists can represent different infrared wavelengths with visible
-        colours to study different properties of astronomical objects.
-      </p>
+      <p>SPHEREx studies the sky in 102 infrared spectral bands. Each wavelength can reveal different features and information about cosmic material.</p>
     </div>
 
     <div class="compare-layout">
       <div>
-        <div class="compare-frame" id="compareFrame">
+        <div class="compare-frame">
           <img
-            src="https://www.nasa.gov/wp-content/uploads/2025/05/1-pia26352-spherexs-dust-cloud-reveal.jpg?w=1024"
-            alt="SPHEREx image showing an infrared view at 3.29 microns"
-            loading="lazy"
-          >
+            src="https://www.nasa.gov/wp-content/uploads/2025/05/2-pia26352-fig-a-spherexs-dust-cloud-reveal.jpg?w=1024"
+            alt="SPHEREx view at 0.98 microns"
+            loading="lazy">
 
-          <div class="compare-reveal" id="compareReveal">
+          <div class="compare-layer" id="compareLayer">
             <img
-              src="https://www.nasa.gov/wp-content/uploads/2025/05/2-pia26352-fig-a-spherexs-dust-cloud-reveal.jpg?w=1024"
-              alt="SPHEREx image of the same sky region at 0.98 microns"
-              loading="lazy"
-            >
+              src="https://www.nasa.gov/wp-content/uploads/2025/05/1-pia26352-spherexs-dust-cloud-reveal.jpg?w=1024"
+              alt="SPHEREx view at 3.29 microns where the dust cloud is visible"
+              loading="lazy">
           </div>
 
-          <div class="compare-label left">3.29 µm · DUST</div>
-          <div class="compare-label right">0.98 µm · OTHER VIEW</div>
+          <span class="compare-tag left">0.98 µm · OTHER VIEW</span>
+          <span class="compare-tag right">3.29 µm · DUST</span>
           <div class="compare-divider" id="compareDivider"></div>
         </div>
 
         <div class="range-wrap">
-          <label for="compareRange" class="muted">
-            Move the slider to reveal the second wavelength
-          </label>
+          <label for="compareRange" class="muted">Drag to compare wavelengths</label>
           <input id="compareRange" type="range" min="0" max="100" value="50">
         </div>
 
-        <p class="compare-explain">
-          Image credit: NASA/JPL-Caltech. The two views show the same region
-          at different infrared wavelengths. The dust feature visible at
-          3.29 microns is not visible in the 0.98-micron view.
+        <p class="muted" style="font-size:.77rem">
+          Image credit: NASA/JPL-Caltech.
+          <a class="learn-more" href="https://www.jpl.nasa.gov/images/pia26352-spherexs-dust-cloud-reveal/" target="_blank" rel="noopener noreferrer">Original image explanation ↗</a>
         </p>
       </div>
 
       <article class="panel">
-        <div class="eyebrow">Mission overview</div>
-        <h3>What is SPHEREx?</h3>
-        <p>
-          SPHEREx is a NASA space telescope designed to survey the entire sky
-          in 102 infrared spectral bands. Its observations help researchers
-          investigate galaxies, the early universe, and ingredients in
-          interstellar clouds.
-        </p>
+        <div class="eyebrow">How to interpret this</div>
+        <h3>What can wavelengths reveal?</h3>
+        <p>SPHEREx observed this region of the Large Magellanic Cloud at different infrared wavelengths. A dust feature is visible in the 3.29-micron image but not in the 0.98-micron view.</p>
 
-        <div class="fact-list">
-          <div class="fact">
-            <span class="fact-label">Spectral bands</span>
-            <strong>102</strong>
-          </div>
-          <div class="fact">
-            <span class="fact-label">Light observed</span>
-            <strong>Infrared</strong>
-          </div>
+        <div class="detail-block">
+          <h4>Why compare?</h4>
+          <p>Molecules can emit and absorb light at particular wavelengths. Spectral information can help researchers investigate chemical composition and the physical conditions of material in space.</p>
         </div>
 
-        <a class="button button-primary" href="https://science.nasa.gov/mission/spherex/" target="_blank" rel="noopener noreferrer">
-          About SPHEREx ↗
-        </a>
-
-        <p style="margin-top:12px">
-          <a href="https://irsa.ipac.caltech.edu/" target="_blank" rel="noopener noreferrer" style="color:var(--teal)">
-            Open NASA/IPAC Infrared Science Archive ↗
-          </a>
-        </p>
-
-        <div class="notice">
-          This slider compares two published images; it does not detect
-          anomalies, align raw telescope data, or identify new planets.
-          Differences alone are not evidence of a discovery.
+        <div class="detail-block">
+          <h4>What the slider does</h4>
+          <p>It reveals two published images side by side. It does not align raw exposures, calibrate telescope data or calculate an automated detection score.</p>
         </div>
+
+        <div class="detail-block">
+          <h4>What discovery requires</h4>
+          <p>A visual difference alone does not prove a new planet or another discovery. Scientific analysis needs appropriate data, quality checks, context and review.</p>
+        </div>
+
+        <p><a class="button button-primary" href="https://science.nasa.gov/mission/spherex/" target="_blank" rel="noopener noreferrer">Learn about SPHEREx ↗</a></p>
+        <p><a class="learn-more" href="https://irsa.ipac.caltech.edu/" target="_blank" rel="noopener noreferrer">NASA/IPAC Infrared Science Archive ↗</a></p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- SCIENTIFIC NOTES -->
-
-<section class="section" id="about">
+<section class="section" id="science">
   <div class="container">
     <div class="section-heading">
-      <div class="eyebrow">05 / About ANDROMEDA</div>
-      <h2>Explore carefully. Ask better questions.</h2>
-      <p>
-        ANDROMEDA brings interactive astronomy learning and public
-        scientific imagery into one place. The goal is to make space
-        exploration approachable while treating scientific evidence honestly.
-      </p>
+      <div class="eyebrow">06 / Scientific practice</div>
+      <h2>Curiosity, evidence and uncertainty.</h2>
+      <p>The goal is not to label every unusual image a discovery. It is to ask testable questions and follow the evidence.</p>
     </div>
 
-    <div class="external-grid">
-      <article class="external-card">
-        <div class="eyebrow">Evidence</div>
-        <h3>Sources matter</h3>
-        <p>
-          Real images link to their original source pages. Check the credits,
-          context and limitations before drawing conclusions.
-        </p>
+    <div class="info-grid">
+      <article class="info-card">
+        <div class="info-symbol">01</div>
+        <h3>Observe</h3>
+        <p>Describe what the image or measurement actually shows, without adding an unsupported explanation.</p>
       </article>
-
-      <article class="external-card">
-        <div class="eyebrow">Uncertainty</div>
-        <h3>Compare, then investigate</h3>
-        <p>
-          Differences can come from wavelength, processing, alignment,
-          instrument effects or real astronomical changes. Further checks
-          are needed before claiming a discovery.
-        </p>
+      <article class="info-card">
+        <div class="info-symbol">02</div>
+        <h3>Compare</h3>
+        <p>Review wavelength, exposure, alignment, processing and data quality before interpreting differences.</p>
+      </article>
+      <article class="info-card">
+        <div class="info-symbol">03</div>
+        <h3>Investigate</h3>
+        <p>Check alternative explanations, source records and scientific context before making a claim.</p>
       </article>
     </div>
+
+    <div class="notice">The solar system and star map on this website are educational models. The SPHEREx slider is a visual aid, not an automated scientific discovery system.</div>
   </div>
 </section>
 
@@ -1175,265 +1303,488 @@ footer {
 
 <footer>
   <div class="container footer-row">
-    <a href="#home" class="brand">ANDRO<span>MEDA</span></a>
-    <span>Independent astronomy learning concept · Not an official NASA website</span>
+    <a class="brand" href="#home">ANDRO<span>MEDA</span></a>
+    <span>Observatory Dark · Independent astronomy explorer</span>
     <a href="#home">Back to top ↑</a>
   </div>
 </footer>
+</div>
 
 <script>
-/* PLANET SELECTOR */
+/* STARFIELD BACKGROUND */
+
+const starCanvas = document.querySelector("#starfield");
+const starCtx = starCanvas.getContext("2d");
+let backgroundStars = [];
+let frameCount = 0;
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function setupStarfield() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  starCanvas.width = Math.round(innerWidth * ratio);
+  starCanvas.height = Math.round(innerHeight * ratio);
+  starCanvas.style.width = innerWidth + "px";
+  starCanvas.style.height = innerHeight + "px";
+  starCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  backgroundStars = Array.from({ length: 165 }, () => ({
+    x: Math.random() * innerWidth,
+    y: Math.random() * innerHeight,
+    radius: Math.random() * 1.2 + .2,
+    phase: Math.random() * Math.PI * 2
+  }));
+}
+
+function drawStarfield() {
+  starCtx.clearRect(0, 0, innerWidth, innerHeight);
+
+  backgroundStars.forEach(star => {
+    const opacity = reduceMotion
+      ? .62
+      : .3 + .45 * (Math.sin(frameCount * .02 + star.phase) + 1) / 2;
+
+    starCtx.beginPath();
+    starCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+    starCtx.fillStyle = `rgba(210,226,238,${opacity})`;
+    starCtx.fill();
+  });
+
+  if (!reduceMotion) {
+    frameCount++;
+    requestAnimationFrame(drawStarfield);
+  }
+}
+
+setupStarfield();
+drawStarfield();
+
+window.addEventListener("resize", () => {
+  setupStarfield();
+  if (reduceMotion) drawStarfield();
+});
+
+/* VIDEO: LOAD WHEN THE VIEWER CLICKS */
+
+document.querySelector("#playVideo").addEventListener("click", () => {
+  const card = document.querySelector("#videoCard");
+  const iframe = document.createElement("iframe");
+  iframe.src = "https://www.youtube-nocookie.com/embed/libKVRa01L8?autoplay=1&rel=0";
+  iframe.title = "Solar System educational video";
+  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  iframe.allowFullscreen = true;
+  iframe.referrerPolicy = "strict-origin-when-cross-origin";
+  card.replaceChildren(iframe);
+});
+
+/* PLANET INFORMATION */
 
 const planets = {
   Mercury: {
-    order: "1st planet",
+    type: "Terrestrial planet · 1st from the Sun",
+    diameter: "4,879 km",
+    distance: "57.9 million km",
     year: "88 Earth days",
-    description: "The smallest planet, orbiting closest to the Sun. Mercury has an ancient, heavily cratered surface.",
-    url: "https://science.nasa.gov/mercury/"
+    day: "58.6 Earth days",
+    gravity: "3.7 m/s²",
+    moons: "0 known",
+    intro: "Mercury is the smallest planet and the closest to the Sun. Its heavily cratered surface preserves traces of ancient impacts.",
+    atmosphere: "Mercury has an extremely thin exosphere rather than a dense atmosphere. Solar radiation and the solar wind continually affect this tenuous layer.",
+    surface: "Mercury has impact craters, long cliffs and ancient volcanic plains. Its large iron-rich core is proportionally enormous for a planet of its size.",
+    exploration: "Mariner 10 made flybys in the 1970s. NASA's MESSENGER spacecraft orbited Mercury from 2011 to 2015, mapping its surface and measuring its magnetic environment. BepiColombo is studying the planet through a joint ESA/JAXA mission.",
+    question: "How did Mercury develop such a large metallic core, and what do its surface and polar deposits reveal about its history?",
+    url: "https://science.nasa.gov/mercury/",
+    query: "Mercury MESSENGER global mosaic NASA",
+    image: "https://images-api.nasa.gov/search?q=Mercury%20MESSENGER%20planet&media_type=image&page_size=5"
   },
   Venus: {
-    order: "2nd planet",
+    type: "Terrestrial planet · 2nd from the Sun",
+    diameter: "12,104 km",
+    distance: "108.2 million km",
     year: "225 Earth days",
-    description: "A rocky planet with a dense atmosphere and an extremely hot surface. Venus is similar to Earth in size.",
-    url: "https://science.nasa.gov/venus/"
+    day: "243 Earth days",
+    gravity: "8.9 m/s²",
+    moons: "0 known",
+    intro: "Venus resembles Earth in size but has a radically different environment. Its dense atmosphere traps heat, making its surface hotter than Mercury's.",
+    atmosphere: "Venus's atmosphere consists mostly of carbon dioxide, with thick clouds containing sulfuric acid. Surface pressure is roughly 92 times Earth's sea-level pressure.",
+    surface: "Radar reveals volcanic plains, mountains and extensive deformation of the crust beneath the cloud cover. Venus rotates in the opposite direction to most planets.",
+    exploration: "Magellan mapped most of the planet with radar. Mariner, Pioneer Venus and spacecraft from other space agencies studied Venus's atmosphere and surface.",
+    question: "How did Venus develop its extreme greenhouse climate, and what can its geological history reveal about rocky planets?",
+    url: "https://science.nasa.gov/venus/",
+    query: "Venus Magellan radar NASA",
+    image: "https://images-api.nasa.gov/search?q=Venus%20Magellan&media_type=image&page_size=5"
   },
   Earth: {
-    order: "3rd planet",
-    year: "365 days",
-    description: "Our home planet, with liquid water on the surface and an atmosphere that supports life as we know it.",
-    url: "https://science.nasa.gov/earth/"
+    type: "Terrestrial planet · 3rd from the Sun",
+    diameter: "12,756 km",
+    distance: "149.6 million km",
+    year: "365.25 days",
+    day: "23.9 hours",
+    gravity: "9.8 m/s²",
+    moons: "1 known",
+    intro: "Earth is our home planet and the only world currently known to support life. Liquid water, a protective atmosphere and a magnetic field shape its habitability.",
+    atmosphere: "Nitrogen and oxygen dominate the atmosphere. Water vapour and trace gases affect weather and climate, while the ozone layer absorbs much harmful ultraviolet radiation.",
+    surface: "Earth has oceans, continents, active plate tectonics and a dynamic interior. Motion in its liquid outer core generates a global magnetic field.",
+    exploration: "Satellites, ground observatories, ocean measurements and crewed spacecraft study Earth's land, oceans, atmosphere, ice and climate systems.",
+    question: "How do oceans, atmosphere, rocks and living systems interact to create and maintain conditions suitable for life?",
+    url: "https://science.nasa.gov/earth/",
+    query: "Earth Blue Marble NASA",
+    image: "https://images-api.nasa.gov/search?q=Earth%20Blue%20Marble&media_type=image&page_size=5"
   },
   Mars: {
-    order: "4th planet",
+    type: "Terrestrial planet · 4th from the Sun",
+    diameter: "6,792 km",
+    distance: "227.9 million km",
     year: "687 Earth days",
-    description: "A cold, rocky world with volcanoes, ancient river features, polar caps and robotic explorers.",
-    url: "https://science.nasa.gov/mars/"
+    day: "24.6 hours",
+    gravity: "3.7 m/s²",
+    moons: "2 known",
+    intro: "Mars is a cold, rocky world whose surface preserves evidence of ancient rivers, lakes and environments unlike most of those seen today.",
+    atmosphere: "Mars's thin atmosphere consists mainly of carbon dioxide. Dust storms can spread widely and sometimes cover huge areas of the planet.",
+    surface: "Mars has Olympus Mons, a giant volcano, and Valles Marineris, a vast canyon system. Its two small moons are Phobos and Deimos.",
+    exploration: "Orbiters map the surface and atmosphere. Rovers such as Curiosity and Perseverance study rocks, minerals and ancient environments to investigate past habitability.",
+    question: "How long did liquid water persist on ancient Mars, and could its environments ever have supported microbial life?",
+    url: "https://science.nasa.gov/mars/",
+    query: "Mars Perseverance NASA",
+    image: "https://images-api.nasa.gov/search?q=Mars%20Perseverance%20planet&media_type=image&page_size=5"
   },
   Jupiter: {
-    order: "5th planet",
+    type: "Gas giant · 5th from the Sun",
+    diameter: "142,984 km",
+    distance: "778.6 million km",
     year: "11.86 Earth years",
-    description: "The largest planet in our solar system, with powerful storms and a large family of moons.",
-    url: "https://science.nasa.gov/jupiter/"
+    day: "9.9 hours",
+    gravity: "24.8 m/s²",
+    moons: "Many known",
+    intro: "Jupiter is the largest planet. Its powerful gravity, rapidly rotating atmosphere and extensive moon system make it a major target for planetary science.",
+    atmosphere: "Hydrogen and helium dominate Jupiter's atmosphere. Cloud bands, turbulent flows and long-lived storms—including the Great Red Spot—shape its appearance.",
+    surface: "Jupiter has no defined solid surface like Earth. Pressure and temperature rise with depth, and hydrogen may become electrically conducting metallic hydrogen in its interior.",
+    exploration: "Pioneer and Voyager flew past. Galileo orbited Jupiter, and NASA's Juno mission studies its gravity, magnetic field, atmosphere and interior.",
+    question: "What does Jupiter's interior tell us about how giant planets form, and how do its large moons interact with the planet?",
+    url: "https://science.nasa.gov/jupiter/",
+    query: "Jupiter Cassini NASA",
+    image: "https://images-api.nasa.gov/search?q=Jupiter%20Cassini&media_type=image&page_size=5"
   },
   Saturn: {
-    order: "6th planet",
+    type: "Gas giant · 6th from the Sun",
+    diameter: "120,536 km",
+    distance: "1.43 billion km",
     year: "29.4 Earth years",
-    description: "A gas giant known for its spectacular rings, which contain countless icy and rocky particles.",
-    url: "https://science.nasa.gov/saturn/"
+    day: "About 10.7 hours",
+    gravity: "About 10.4 m/s²",
+    moons: "Many known",
+    intro: "Saturn is known for its expansive ring system, but its atmosphere, magnetic environment and many moons are equally important scientific targets.",
+    atmosphere: "Hydrogen and helium dominate the atmosphere. High-altitude winds, storms, cloud bands and seasonal changes affect Saturn's appearance.",
+    surface: "Saturn has no solid surface accessible to spacecraft. Its rings contain countless particles, mostly water ice and rocky material. Titan has a thick atmosphere, while Enceladus emits water-rich plumes.",
+    exploration: "Cassini studied Saturn, its rings and moons from 2004 to 2017. The Huygens probe descended through Titan's atmosphere and reached the surface in 2005.",
+    question: "How did Saturn's rings form and evolve, and what might Titan and Enceladus reveal about habitable environments?",
+    url: "https://science.nasa.gov/saturn/",
+    query: "Saturn Cassini rings NASA",
+    image: "https://images-api.nasa.gov/search?q=Saturn%20Cassini%20rings&media_type=image&page_size=5"
   },
   Uranus: {
-    order: "7th planet",
+    type: "Ice giant · 7th from the Sun",
+    diameter: "51,118 km",
+    distance: "2.87 billion km",
     year: "84 Earth years",
-    description: "An ice giant with a strongly tilted rotation axis and a cold atmosphere containing hydrogen, helium and methane.",
-    url: "https://science.nasa.gov/uranus/"
+    day: "17.2 hours",
+    gravity: "8.7 m/s²",
+    moons: "Many known",
+    intro: "Uranus is an ice giant with a blue-green appearance. Its rotation axis is tilted by about 98 degrees, producing unusual seasonal geometry.",
+    atmosphere: "Hydrogen and helium dominate the upper atmosphere. Methane absorbs red light, contributing to Uranus's blue-green colour.",
+    surface: "Uranus has no accessible solid surface. Its interior is thought to contain hot, dense fluids rich in water, ammonia and methane under enormous pressure.",
+    exploration: "Voyager 2 flew past Uranus in 1986 and remains the only spacecraft to have visited it closely. Telescopes continue to monitor its atmosphere, rings and moons.",
+    question: "Why is Uranus tilted so dramatically, and what can its unusual magnetic field reveal about its interior?",
+    url: "https://science.nasa.gov/uranus/",
+    query: "Uranus Voyager 2 NASA",
+    image: "https://images-api.nasa.gov/search?q=Uranus%20Voyager%202&media_type=image&page_size=5"
   },
   Neptune: {
-    order: "8th planet",
-    year: "165 Earth years",
-    description: "A distant ice giant with a deep blue appearance and very fast winds in its atmosphere.",
-    url: "https://science.nasa.gov/neptune/"
+    type: "Ice giant · 8th from the Sun",
+    diameter: "49,528 km",
+    distance: "4.50 billion km",
+    year: "164.8 Earth years",
+    day: "16.1 hours",
+    gravity: "11.0 m/s²",
+    moons: "Many known",
+    intro: "Neptune is a distant ice giant with a deep blue appearance, a dynamic atmosphere and some of the strongest winds measured on a planet.",
+    atmosphere: "Hydrogen, helium and methane shape its atmospheric properties. Storms can form and change as the atmosphere circulates.",
+    surface: "Neptune has no accessible solid surface. Its interior may contain high-pressure fluids rich in water, ammonia and methane. Its large moon Triton follows a retrograde orbit.",
+    exploration: "Voyager 2 made the only close flyby in 1989. Ground and space telescopes continue to monitor Neptune's clouds, rings and moons.",
+    question: "How does Neptune sustain such dynamic weather so far from the Sun, and what does Triton's unusual orbit reveal about the outer Solar System?",
+    url: "https://science.nasa.gov/neptune/",
+    query: "Neptune Voyager 2 NASA",
+    image: "https://images-api.nasa.gov/search?q=Neptune%20Voyager%202&media_type=image&page_size=5"
   }
 };
 
-const planetName = document.querySelector("#planetName");
-const planetDescription = document.querySelector("#planetDescription");
-const planetOrder = document.querySelector("#planetOrder");
-const planetYear = document.querySelector("#planetYear");
-const planetLink = document.querySelector("#planetLink");
-const planetChips = document.querySelectorAll(".planet-chip");
-const planetDots = document.querySelectorAll(".planet-dot");
+const planetPhoto = document.querySelector("#planetPhoto");
+const photoFallback = document.querySelector("#photoFallback");
+const fallbackPlanet = document.querySelector("#fallbackPlanet");
+const photoStatus = document.querySelector("#photoStatus");
+const imageCache = {};
+let currentPlanet = "Earth";
+
+const fallbackColours = {
+  Mercury: "radial-gradient(circle at 28% 25%, #C7C8C5, #535C66 75%)",
+  Venus: "radial-gradient(circle at 28% 25%, #E9D5B1, #8F7051 75%)",
+  Earth: "radial-gradient(circle at 28% 25%, #B7D8DC, #3B8B9D 50%, #1A2C52 85%)",
+  Mars: "radial-gradient(circle at 28% 25%, #E9AB87, #8D3F35 75%)",
+  Jupiter: "repeating-linear-gradient(0deg, #BD9471 0 9px, #765849 10px 15px, #F0DFC3 16px 23px)",
+  Saturn: "repeating-linear-gradient(0deg, #D8C6A4 0 8px, #A38E65 9px 15px)",
+  Uranus: "radial-gradient(circle at 28% 25%, #D1EBE9, #589BA9 75%)",
+  Neptune: "radial-gradient(circle at 28% 25%, #9BB6F2, #203C89 75%)"
+};
 
 function selectPlanet(name) {
   const planet = planets[name];
   if (!planet) return;
 
-  planetName.textContent = name;
-  planetDescription.textContent = planet.description;
-  planetOrder.textContent = planet.order;
-  planetYear.textContent = planet.year;
-  planetLink.href = planet.url;
-  planetLink.textContent = "Read NASA facts ↗";
+  currentPlanet = name;
 
-  planetChips.forEach(button => {
-    button.classList.toggle("selected", button.dataset.planet === name);
+  document.querySelector("#planetType").textContent = planet.type;
+  document.querySelector("#planetName").textContent = name;
+  document.querySelector("#planetIntro").textContent = planet.intro;
+  document.querySelector("#planetDiameter").textContent = planet.diameter;
+  document.querySelector("#planetDistance").textContent = planet.distance;
+  document.querySelector("#planetYear").textContent = planet.year;
+  document.querySelector("#planetDay").textContent = planet.day;
+  document.querySelector("#planetGravity").textContent = planet.gravity;
+  document.querySelector("#planetMoons").textContent = planet.moons;
+  document.querySelector("#planetAtmosphere").textContent = planet.atmosphere;
+  document.querySelector("#planetSurface").textContent = planet.surface;
+  document.querySelector("#planetExploration").textContent = planet.exploration;
+  document.querySelector("#planetQuestion").textContent = planet.question;
+  document.querySelector("#planetNasaLink").href = planet.url;
+
+  document.querySelectorAll(".solar-planet").forEach(element => {
+    const selected = element.dataset.planet === name;
+    element.classList.toggle("selected", selected);
+    element.setAttribute("aria-pressed", String(selected));
   });
 
-  planetDots.forEach(button => {
-    button.setAttribute(
-      "aria-pressed",
-      String(button.dataset.planet === name)
-    );
+  document.querySelectorAll(".planet-chip").forEach(element => {
+    element.classList.toggle("selected", element.dataset.planet === name);
   });
+
+  planetPhoto.hidden = true;
+  photoFallback.hidden = false;
+  planetPhoto.alt = "NASA image of " + name;
+  fallbackPlanet.style.background = fallbackColours[name];
+  photoStatus.textContent = "Loading NASA imagery when available…";
+
+  if (imageCache[name]) {
+    planetPhoto.src = imageCache[name];
+    planetPhoto.hidden = false;
+    photoFallback.hidden = true;
+    return;
+  }
+
+  fetch(planet.image)
+    .then(response => {
+      if (!response.ok) throw new Error("NASA image search unavailable");
+      return response.json();
+    })
+    .then(data => {
+      const items = data.collection?.items || [];
+      const item = items.find(entry =>
+        entry.links?.some(link => link.rel === "preview" && /^https?:/.test(link.href))
+      );
+      const preview = item?.links?.find(link => link.rel === "preview")?.href;
+      if (!preview) throw new Error("No image preview available");
+
+      imageCache[name] = preview;
+
+      if (currentPlanet === name) {
+        planetPhoto.onload = () => {
+          planetPhoto.hidden = false;
+          photoFallback.hidden = true;
+        };
+        planetPhoto.onerror = () => {
+          planetPhoto.hidden = true;
+          photoFallback.hidden = false;
+          photoStatus.textContent = "Image unavailable. Open NASA's planet guide below.";
+        };
+        planetPhoto.src = preview;
+      }
+    })
+    .catch(() => {
+      if (currentPlanet === name) {
+        photoStatus.textContent = "NASA image search unavailable right now. The planet facts still work.";
+      }
+    });
 }
 
-document.querySelectorAll("[data-planet]").forEach(button => {
-  button.addEventListener("click", () => {
-    selectPlanet(button.dataset.planet);
-  });
+document.querySelectorAll("[data-planet]").forEach(element => {
+  element.addEventListener("click", () => selectPlanet(element.dataset.planet));
+
+  if (element.classList.contains("solar-planet")) {
+    element.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectPlanet(element.dataset.planet);
+      }
+    });
+  }
 });
 
-/* ORBIT CONTROLS */
+selectPlanet("Earth");
 
-const systemStage = document.querySelector("#systemStage");
+/* PAUSE/RESUME AND CONTROL ORBITAL SPEED */
+
+const solarSvg = document.querySelector("#solarSvg");
 const motionButton = document.querySelector("#motionButton");
 const speedRange = document.querySelector("#speedRange");
-const resetSystem = document.querySelector("#resetSystem");
 
 let motionPaused = false;
 
 motionButton.addEventListener("click", () => {
   motionPaused = !motionPaused;
-  systemStage.classList.toggle("system-paused", motionPaused);
-  motionButton.textContent = motionPaused
-    ? "Resume orbital motion"
-    : "Pause orbital motion";
+
+  if (motionPaused) {
+    solarSvg.pauseAnimations();
+    motionButton.textContent = "Resume planetary motion";
+  } else {
+    solarSvg.unpauseAnimations();
+    motionButton.textContent = "Pause planetary motion";
+  }
 });
 
-function updateOrbitSpeed() {
-  const speed = Number(speedRange.value);
-  document.querySelectorAll(".orbit-track").forEach(track => {
-    const original = Number(track.parentElement.dataset.basePeriod ||
-      getComputedStyle(track.parentElement).getPropertyValue("--period").replace("s", ""));
+const motionDurations = [14, 21, 29, 38, 51, 64, 79, 96];
 
-    if (original > 0) {
-      track.style.animationDuration = `${original / speed}s`;
-    }
+function updateOrbitalSpeed() {
+  const speed = Number(speedRange.value);
+  const motions = solarSvg.querySelectorAll("animateMotion");
+
+  motions.forEach((motion, index) => {
+    motion.setAttribute("dur", (motionDurations[index] / speed) + "s");
+    motion.beginElement();
   });
+
+  if (motionPaused) solarSvg.pauseAnimations();
 }
 
-/* Store default periods so the speed control works reliably. */
-document.querySelectorAll(".orbit").forEach(orbit => {
-  orbit.dataset.basePeriod =
-    getComputedStyle(orbit).getPropertyValue("--period").replace("s", "").trim();
-});
+speedRange.addEventListener("input", updateOrbitalSpeed);
 
-speedRange.addEventListener("input", updateOrbitSpeed);
+/* INTERACTIVE STAR MAP */
 
-resetSystem.addEventListener("click", () => {
-  selectPlanet("Earth");
-  motionPaused = false;
-  systemStage.classList.remove("system-paused");
-  motionButton.textContent = "Pause orbital motion";
-  speedRange.value = "1";
-  updateOrbitSpeed();
-});
+const skyCanvas = document.querySelector("#skyMap");
+const ctx = skyCanvas.getContext("2d");
 
-/* STAR ATLAS */
-
-const canvas = document.querySelector("#skyCanvas");
-const ctx = canvas.getContext("2d");
-const skyInfo = document.querySelector("#starInfo");
-const starTitle = document.querySelector("#starTitle");
-
-let showConstellations = true;
-let showStarLabels = true;
 let skyStars = [];
+let showConstellations = true;
+let showLabels = true;
 
 const namedStars = [
-  { name: "Sirius", x: .19, y: .72, note: "A very bright star in Canis Major." },
-  { name: "Betelgeuse", x: .41, y: .28, note: "A red supergiant in the constellation Orion." },
-  { name: "Rigel", x: .58, y: .56, note: "A bright blue-white supergiant in Orion." },
-  { name: "Bellatrix", x: .45, y: .39, note: "A bright star marking Orion's shoulder." },
-  { name: "Alnitak", x: .47, y: .51, note: "One of the three stars in Orion's Belt." },
-  { name: "Alnilam", x: .51, y: .49, note: "The middle star in Orion's Belt." },
-  { name: "Mintaka", x: .55, y: .47, note: "The western star in Orion's Belt." },
-  { name: "Polaris", x: .82, y: .16, note: "The North Star, close to the north celestial pole." },
-  { name: "Dubhe", x: .72, y: .22, note: "A bright star in the Big Dipper asterism." },
-  { name: "Merak", x: .68, y: .30, note: "Another of the stars forming the Big Dipper's bowl." },
-  { name: "Vega", x: .73, y: .54, note: "A bright star in the constellation Lyra." },
-  { name: "Deneb", x: .84, y: .40, note: "A luminous star in Cygnus." },
-  { name: "Altair", x: .63, y: .69, note: "A bright star in the constellation Aquila." }
-];
-
-const constellations = [
-  ["Betelgeuse", "Bellatrix", "Alnitak", "Alnilam", "Mintaka", "Rigel"],
-  ["Dubhe", "Merak"],
-  ["Vega", "Deneb", "Altair"]
+  { name: "Sirius", x: .15, y: .69, note: "Sirius is the brightest star in Earth's night sky in visible light. It belongs to Canis Major." },
+  { name: "Betelgeuse", x: .39, y: .24, note: "Betelgeuse is a red supergiant in Orion whose brightness varies over time." },
+  { name: "Bellatrix", x: .43, y: .38, note: "Bellatrix is a hot, luminous star marking a shoulder of Orion." },
+  { name: "Alnitak", x: .45, y: .50, note: "Alnitak is one of the three prominent stars of Orion's Belt." },
+  { name: "Alnilam", x: .50, y: .48, note: "Alnilam is the central star in Orion's Belt and is a luminous blue supergiant." },
+  { name: "Mintaka", x: .55, y: .46, note: "Mintaka forms the western end of Orion's Belt." },
+  { name: "Rigel", x: .59, y: .58, note: "Rigel is a bright blue-white supergiant in Orion." },
+  { name: "Polaris", x: .82, y: .14, note: "Polaris lies close to the north celestial pole and is useful for finding north in the Northern Hemisphere." },
+  { name: "Dubhe", x: .73, y: .24, note: "Dubhe is a bright star in the Big Dipper part of Ursa Major." },
+  { name: "Merak", x: .69, y: .32, note: "Merak and Dubhe can be used as pointer stars to find Polaris." },
+  { name: "Vega", x: .73, y: .53, note: "Vega is a prominent star in Lyra and part of the Summer Triangle asterism." },
+  { name: "Deneb", x: .86, y: .38, note: "Deneb is a luminous star in Cygnus and another member of the Summer Triangle." },
+  { name: "Altair", x: .65, y: .69, note: "Altair is a bright, rapidly rotating star in Aquila." }
 ];
 
 function drawSky() {
-  const rect = canvas.getBoundingClientRect();
+  const rect = skyCanvas.getBoundingClientRect();
   const width = rect.width;
   const height = rect.height;
-  const dpr = window.devicePixelRatio || 1;
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
 
-  canvas.width = Math.round(width * dpr);
-  canvas.height = Math.round(height * dpr);
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, width, height);
-
-  const background = ctx.createLinearGradient(0, 0, width, height);
-  background.addColorStop(0, "#080D16");
-  background.addColorStop(1, "#111A26");
-  ctx.fillStyle = background;
+  skyCanvas.width = Math.round(width * ratio);
+  skyCanvas.height = Math.round(height * ratio);
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.fillStyle = "#080D16";
   ctx.fillRect(0, 0, width, height);
 
-  /* Repeatable scattered stars */
-  for (let i = 0; i < 180; i++) {
+  for (let i = 0; i < 150; i++) {
     const x = ((Math.sin(i * 127.1) * 43758.5453) % 1 + 1) % 1 * width;
     const y = ((Math.sin(i * 311.7) * 96321.917) % 1 + 1) % 1 * height;
-    const radius = (i % 13 === 0) ? 1.5 : .6 + (i % 5) * .17;
 
     ctx.beginPath();
-    ctx.fillStyle = i % 7 === 0 ? "#A6C4CB" : "#DDE7EF";
-    ctx.globalAlpha = .42 + (i % 6) * .09;
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.arc(x, y, i % 11 === 0 ? 1.4 : .6, 0, Math.PI * 2);
+    ctx.fillStyle = i % 7 === 0 ? "#A7C8D2" : "#E8EDF2";
+    ctx.globalAlpha = .72;
     ctx.fill();
   }
-
   ctx.globalAlpha = 1;
 
   skyStars = namedStars.map(star => ({
-    ...star,
-    px: star.x * width,
-    py: star.y * height
+    ...star, px: star.x * width, py: star.y * height
   }));
 
+  const lookup = Object.fromEntries(skyStars.map(star => [star.name, star]));
+
   if (showConstellations) {
-    ctx.strokeStyle = "#7FAEAE85";
+    ctx.strokeStyle = "#7FAEAE88";
     ctx.lineWidth = 1;
 
-    const byName = Object.fromEntries(skyStars.map(star => [star.name, star]));
-
-    constellationLines(byName, ["Betelgeuse", "Bellatrix", "Mintaka", "Alnilam", "Alnitak", "Rigel", "Bellatrix"]);
-    constellationLines(byName, ["Dubhe", "Merak"]);
-    constellationLines(byName, ["Vega", "Deneb", "Altair", "Vega"]);
+    [
+      ["Betelgeuse", "Bellatrix", "Mintaka", "Alnilam", "Alnitak", "Rigel"],
+      ["Dubhe", "Merak"],
+      ["Vega", "Deneb", "Altair", "Vega"]
+    ].forEach(path => {
+      ctx.beginPath();
+      path.forEach((name, index) => {
+        const star = lookup[name];
+        if (!star) return;
+        if (index === 0) ctx.moveTo(star.px, star.py);
+        else ctx.lineTo(star.px, star.py);
+      });
+      ctx.stroke();
+    });
   }
 
   skyStars.forEach(star => {
     ctx.beginPath();
-    ctx.fillStyle = "#EDF4F7";
-    ctx.arc(star.px, star.py, 2.4, 0, Math.PI * 2);
+    ctx.arc(star.px, star.py, 2.6, 0, Math.PI * 2);
+    ctx.fillStyle = "#E8EDF2";
     ctx.fill();
 
     ctx.beginPath();
-    ctx.strokeStyle = "#7FAEAE66";
-    ctx.arc(star.px, star.py, 5, 0, Math.PI * 2);
+    ctx.arc(star.px, star.py, 6, 0, Math.PI * 2);
+    ctx.strokeStyle = "#7FAEAE88";
     ctx.stroke();
 
-    if (showStarLabels) {
+    if (showLabels) {
       ctx.font = "11px DM Sans, sans-serif";
-      ctx.fillStyle = "#C4D2DB";
+      ctx.fillStyle = "#CBD6E0";
       ctx.fillText(star.name, star.px + 8, star.py - 7);
     }
   });
-
-  ctx.globalAlpha = 1;
 }
 
-function constellationLines(byName, names) {
-  ctx.beginPath();
-  names.forEach((name, i) => {
-    const star = byName[name];
-    if (!star) return;
-    if (i === 0) ctx.moveTo(star.px, star.py);
-    else ctx.lineTo(star.px, star.py);
+skyCanvas.addEventListener("click", event => {
+  const rect = skyCanvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  let closest = null;
+  let closestDistance = 25;
+
+  skyStars.forEach(star => {
+    const distance = Math.hypot(star.px - x, star.py - y);
+    if (distance < closestDistance) {
+      closest = star;
+      closestDistance = distance;
+    }
   });
-  ctx.stroke();
-}
 
-document.querySelector("#constellationToggle").addEventListener("click", event => {
+  document.querySelector("#starName").textContent =
+    closest ? closest.name : "Star field";
+
+  document.querySelector("#starDescription").textContent =
+    closest
+      ? closest.note
+      : "Select a labelled star to learn more. This diagram is illustrative, not a live astronomical chart.";
+});
+
+document.querySelector("#toggleConstellations").addEventListener("click", event => {
   showConstellations = !showConstellations;
   event.currentTarget.textContent = showConstellations
     ? "Hide constellation lines"
@@ -1441,61 +1792,35 @@ document.querySelector("#constellationToggle").addEventListener("click", event =
   drawSky();
 });
 
-document.querySelector("#labelToggle").addEventListener("click", event => {
-  showStarLabels = !showStarLabels;
-  event.currentTarget.textContent = showStarLabels
-    ? "Hide star labels"
-    : "Show star labels";
+document.querySelector("#toggleStarLabels").addEventListener("click", event => {
+  showLabels = !showLabels;
+  event.currentTarget.textContent = showLabels ? "Hide labels" : "Show labels";
   drawSky();
 });
 
-document.querySelector("#redrawSky").addEventListener("click", () => {
+document.querySelector("#resetSky").addEventListener("click", () => {
+  showConstellations = true;
+  showLabels = true;
+  document.querySelector("#toggleConstellations").textContent = "Hide constellation lines";
+  document.querySelector("#toggleStarLabels").textContent = "Hide labels";
+  document.querySelector("#starName").textContent = "Welcome to the star atlas";
+  document.querySelector("#starDescription").textContent = "Select a labelled star on the map to learn more.";
   drawSky();
-  starTitle.textContent = "Star field refreshed";
-  skyInfo.textContent =
-    "The same illustrative star arrangement has been redrawn. It is not a live or calibrated sky chart.";
-});
-
-canvas.addEventListener("click", event => {
-  const rect = canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-
-  let closest = null;
-  let smallestDistance = Infinity;
-
-  skyStars.forEach(star => {
-    const distance = Math.hypot(star.px - x, star.py - y);
-    if (distance < smallestDistance) {
-      smallestDistance = distance;
-      closest = star;
-    }
-  });
-
-  if (closest && smallestDistance < 24) {
-    starTitle.textContent = closest.name;
-    skyInfo.textContent = closest.note +
-      " The position displayed here is illustrative, not a live sky coordinate.";
-  } else {
-    starTitle.textContent = "Unlabelled star field";
-    skyInfo.textContent =
-      "This point belongs to the decorative star field. Try selecting a labelled star or open Stellarium for a real sky view.";
-  }
 });
 
 window.addEventListener("resize", drawSky);
 drawSky();
 
-/* SPHEREX WAVELENGTH SLIDER */
+/* SPHEREx IMAGE COMPARISON */
 
 const compareRange = document.querySelector("#compareRange");
-const compareReveal = document.querySelector("#compareReveal");
+const compareLayer = document.querySelector("#compareLayer");
 const compareDivider = document.querySelector("#compareDivider");
 
 function updateComparison() {
   const value = Number(compareRange.value);
-  compareReveal.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
-  compareDivider.style.left = `${value}%`;
+  compareLayer.style.clipPath = `inset(0 0 0 ${value}%)`;
+  compareDivider.style.left = value + "%";
 }
 
 compareRange.addEventListener("input", updateComparison);
